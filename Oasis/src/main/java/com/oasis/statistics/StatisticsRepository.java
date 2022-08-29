@@ -1,4 +1,4 @@
-package com.unknown.oasis.statistics;
+package com.oasis.statistics;
 
 public class StatisticsRepository {
 }
