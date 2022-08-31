@@ -1,4 +1,4 @@
-package com.oasis.statistics;
+package com.oasis.controller;
 
 public class StatisticsController {
 }
