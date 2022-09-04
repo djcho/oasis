@@ -19,6 +19,7 @@ public class DepartmentController {
 
         return departmentService.list();
     }
+    
 
     @PostMapping
     public void save(@RequestBody DepartmentRequestDto departmentRequestDto) {
