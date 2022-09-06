@@ -16,21 +16,23 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "oasis_user")
-public class User extends BaseTimeEntity {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long sid;
-    
-    @Email
-    @NotNull
+public class User extends BaseEntity {
+
+    @Email(message = "Invalid [id] format")
+    @NotNull(message = "[id] cannot be null")
     private String id;
     
     @Enumerated(EnumType.STRING)
     private Role role;
-    
+
+    @NotNull(message = "[name] cannot be null")
     private String name;
     
     private String password;
+    
+    // user:position(many:one 단방향 매핑) 
+    @ManyToOne
+    @JoinColumn(name = "sid")
+    private Position position;
     
 }
