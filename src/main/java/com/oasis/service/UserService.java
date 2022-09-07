@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface UserService {
     
-    public User createUser(UserRequestDto userRequestDto);
-    public List<User> getAllUsers(Pageable pageable);
-    public User getOneUser(Long sid);
-    public void deleteOneUser(Long sid);
+    User createUser(UserRequestDto userRequestDto);
+    List<User> getAllUsers(Pageable pageable);
+    User getOneUser(Long sid);
+    void deleteOneUser(Long sid);
     
 }

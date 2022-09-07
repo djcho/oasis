@@ -4,10 +4,7 @@ import com.oasis.data.dto.request.DepartmentRequestDto;
 import com.oasis.data.entity.Department;
 import com.oasis.repository.DepartmentRepository;
 import com.oasis.service.DepartmentService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +14,9 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
-
 
     public List<DepartmentRequestDto> list() {
         List<Department> dd =  departmentRepository.findAll();
