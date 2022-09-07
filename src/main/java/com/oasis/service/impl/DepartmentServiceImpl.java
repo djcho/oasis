@@ -4,18 +4,25 @@ import com.oasis.data.dto.request.DepartmentRequestDto;
 import com.oasis.data.entity.Department;
 import com.oasis.repository.DepartmentRepository;
 import com.oasis.service.DepartmentService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository
+@Service
 @RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
+
     private final DepartmentRepository departmentRepository;
+
 
     public List<DepartmentRequestDto> list() {
         List<Department> dd =  departmentRepository.findAll();
@@ -29,8 +36,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .name(dto.getName())
                 .parentSid(dto.getParentSid())
                 .level(parent.getLevel() + 1)
-                .createDttm(LocalDateTime.now())
-                .modifyDttm(LocalDateTime.now())
                 .build();
         departmentRepository.save(department);
     }
@@ -49,7 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(current.getParentSid() == dto.getParentSid()) {
             current.setName(dto.getName());
         }
-        current.setModifyDttm(LocalDateTime.now());
+        current.setUpdatedAt(LocalDateTime.now());
 
         departmentRepository.save(current);
     }

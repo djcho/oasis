@@ -1,6 +1,7 @@
 package com.oasis.controller;
 
 import com.oasis.data.dto.request.ScheduleRequestDto;
+import com.oasis.data.dto.response.CommonResponseDto;
 import com.oasis.data.dto.response.ScheduleResponseDto;
 import com.oasis.service.ScheduleService;
 import org.slf4j.Logger;
@@ -58,12 +59,12 @@ public class ScheduleController {
     @DeleteMapping("/{scheduleSid}")
     public ResponseEntity<CommonResponseDto> updateSchedule(@PathVariable Long scheduleSid) {
         this.scheduleService.deleteSchedule(scheduleSid);
-        return ResponseEntity.status(HttpStatus.OK).body(CommonResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponseDto());
     }
 
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> getAllSchedule() {
-        this.scheduleService.get
+        //this.scheduleService.get
         return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<ScheduleResponseDto>());
     }
 }

@@ -32,8 +32,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(schedule.getName())
                 .content(schedule.getContent())
                 .date(schedule.getDate())
-                .createdTime(schedule.getCreatedTime())
-                .updatedTime(schedule.getUpdatedTime())
+                .createdTime(schedule.getCreatedAt())
+                .updatedTime(schedule.getUpdatedAt())
         .build()).orElseThrow(() -> new Exception("not found entity."));
     }
 
@@ -54,8 +54,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(savedSchedule.getName())
                 .content(savedSchedule.getContent())
                 .date(savedSchedule.getDate())
-                .createdTime(savedSchedule.getCreatedTime())
-                .updatedTime(savedSchedule.getUpdatedTime())
+                .createdTime(savedSchedule.getCreatedAt())
+                .updatedTime(savedSchedule.getUpdatedAt())
                 .build();
     }
 
@@ -70,7 +70,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if(!scheduleRequestDto.getDate().isEqual(scheduleRequestDto.getDate()))
             schedule.setDate(scheduleRequestDto.getDate());
 
-        schedule.setUpdatedTime(LocalDateTime.now());
+        schedule.setUpdatedAt(LocalDateTime.now());
 
         Schedule savedSchedule = this.scheduleRepository.save(schedule);
         return ScheduleResponseDto.builder()
@@ -78,8 +78,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(savedSchedule.getName())
                 .content(savedSchedule.getContent())
                 .date(savedSchedule.getDate())
-                .createdTime(savedSchedule.getCreatedTime())
-                .updatedTime(savedSchedule.getUpdatedTime())
+                .createdTime(savedSchedule.getCreatedAt())
+                .updatedTime(savedSchedule.getUpdatedAt())
                 .build();
     }
 
@@ -95,8 +95,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(schedule.getName())
                 .content(schedule.getContent())
                 .date(schedule.getDate())
-                .createdTime(schedule.getCreatedTime())
-                .updatedTime(schedule.getUpdatedTime())
+                .createdTime(schedule.getCreatedAt())
+                .updatedTime(schedule.getUpdatedAt())
                 .build()).collect(Collectors.toList());
     }
 }
