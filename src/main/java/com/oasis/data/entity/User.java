@@ -34,8 +34,8 @@ public class User extends BaseEntity {
     
     // user:position(many:one 단방향 매핑) 
     @ManyToOne
-    @JoinColumn(name = "position_sid")
-    private Position position;
+    @JoinColumn(name = "work_position_sid")
+    private WorkPosition workPosition;
 
     //N:1 양방향 관계, 관계 주인 : Schedule entity
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

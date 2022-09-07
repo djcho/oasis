@@ -1,8 +1,8 @@
 package com.oasis.data.dto.request;
 
 import com.oasis.common.constant.Role;
-import com.oasis.data.entity.Position;
 import com.oasis.data.entity.User;
+import com.oasis.data.entity.WorkPosition;
 import lombok.*;
 
 @Setter
@@ -16,7 +16,7 @@ public class UserRequestDto {
     private String name;
     private Role role;
     private String password;
-    private Position position;
+    private WorkPosition workPosition;
     
     public User toUser(){
         return User.builder()
@@ -24,7 +24,7 @@ public class UserRequestDto {
                 .name(this.name)
                 .role(this.role)
                 .password(this.password)
-                .position(this.position)
+                .workPosition(this.workPosition)
                 .build();
     }
 }

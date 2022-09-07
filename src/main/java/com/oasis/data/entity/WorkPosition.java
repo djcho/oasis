@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
-public class Position {
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
+public class WorkPosition {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
