@@ -1,14 +1,13 @@
 package com.oasis.data.entity;
 
 import com.oasis.common.constant.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -17,6 +16,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Table(name = "oasis_user")
 public class User extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sid;
 
     @Email(message = "Invalid [id] format")
     @NotNull(message = "[id] cannot be null")
@@ -34,5 +37,9 @@ public class User extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "sid")
     private Position position;
-    
+
+    //N:1 양방향 관계, 관계 주인 : Schedule entity
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<Schedule> scheduleList = new ArrayList<>();
 }

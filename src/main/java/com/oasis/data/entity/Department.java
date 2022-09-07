@@ -3,23 +3,19 @@ package com.oasis.data.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "oasis_department")
 @Getter
 @Setter
-public class Department {
+public class Department extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
     private Long parentSid;
     private String name;
     private int level;
-    private LocalDateTime createDttm;
-    private LocalDateTime modifyDttm;
 }
