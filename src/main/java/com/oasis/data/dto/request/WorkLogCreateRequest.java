@@ -4,14 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class WorklogModifyRequest {
+public class WorkLogCreateRequest {
+    private Long userSid;
     private String content;
+    private LocalDateTime workingDate;
 
     @Override
     public String toString(){
-        return "WorklogModifyRequest[content=" + content + "]";
+        return "WorkLogCreateRequest[userSid=" + userSid + "content=" + content + "workingDate" + workingDate + "]";
     }
 }

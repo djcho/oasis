@@ -16,17 +16,13 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-public class Worklog {
+public class WorkLog extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
 
     @NotNull
     private Long userSid;
-
-    private LocalDateTime createDttm;
-
-    private LocalDateTime modifyDttm;
 
     @NotNull
     private String content;

@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "oasis_user")
 public class User extends BaseEntity {
 
     @Id
@@ -35,11 +34,12 @@ public class User extends BaseEntity {
     
     // user:position(many:one 단방향 매핑) 
     @ManyToOne
-    @JoinColumn(name = "sid")
+    @JoinColumn(name = "position_sid")
     private Position position;
 
     //N:1 양방향 관계, 관계 주인 : Schedule entity
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @Builder.Default
     private List<Schedule> scheduleList = new ArrayList<>();
 }

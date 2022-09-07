@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
 public class Position {
     
     @Id
