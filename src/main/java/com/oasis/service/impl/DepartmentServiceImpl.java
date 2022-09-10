@@ -20,8 +20,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     public List<DepartmentResponseDto> list() {
-        List<Department> dd =  departmentRepository.findAll();
-        return departmentRepository.findAll().stream().map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName())).collect(Collectors.toList());
+        return departmentRepository.findAll().stream()
+                .map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -49,8 +50,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(current.getParentSid() == dto.getParentSid()) {
             current.setName(dto.getName());
         }
-        current.setUpdatedAt(LocalDateTime.now());
-
         departmentRepository.save(current);
     }
 
@@ -60,6 +59,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public DepartmentResponseDto detail(Long sid) {
-        return departmentRepository.findById(sid).map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName())).orElseThrow(RuntimeException::new);
+        return departmentRepository.findById(sid)
+                .map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
+                .orElseThrow(RuntimeException::new);
     }
 }

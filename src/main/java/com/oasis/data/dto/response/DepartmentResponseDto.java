@@ -11,4 +11,5 @@ public class DepartmentResponseDto {
     private Long sid;
     private Long parentSid;
     private String name;
+    private int level;
 }
