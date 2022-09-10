@@ -1,6 +1,7 @@
 package com.oasis.service.impl;
 
 import com.oasis.data.dto.request.DepartmentRequestDto;
+import com.oasis.data.dto.response.DepartmentResponseDto;
 import com.oasis.data.entity.Department;
 import com.oasis.repository.DepartmentRepository;
 import com.oasis.service.DepartmentService;
@@ -18,9 +19,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
-    public List<DepartmentRequestDto> list() {
+    public List<DepartmentResponseDto> list() {
         List<Department> dd =  departmentRepository.findAll();
-        return departmentRepository.findAll().stream().map(d -> new DepartmentRequestDto(d.getSid(), d.getParentSid(), d.getName())).collect(Collectors.toList());
+        return departmentRepository.findAll().stream().map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName())).collect(Collectors.toList());
     }
 
     @Transactional
@@ -58,7 +59,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentRepository.deleteById(sid);
     }
 
-    public DepartmentRequestDto detail(Long sid) {
-        return departmentRepository.findById(sid).map(d -> new DepartmentRequestDto(d.getSid(), d.getParentSid(), d.getName())).orElseThrow(RuntimeException::new);
+    public DepartmentResponseDto detail(Long sid) {
+        return departmentRepository.findById(sid).map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName())).orElseThrow(RuntimeException::new);
     }
 }
