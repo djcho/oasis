@@ -11,25 +11,25 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class WorkLogController {
 
-    private final WorkLogService worklogService;
+    private final WorkLogService workLogService;
 
     @GetMapping()
     public void workLog() {
 
     }
     @PostMapping()
-    public void addWorkLog(@RequestBody WorkLogCreateRequest worklogCreateRequest){
-        worklogService.addWorkLog(worklogCreateRequest);
+    public void addWorkLog(@RequestBody WorkLogCreateRequest workLogCreateRequest){
+        workLogService.addWorkLog(workLogCreateRequest);
     }
 
     @PatchMapping(value = "{sid}")
-    public void modifyWorkLog(@PathVariable Long sid, @RequestBody WorkLogModifyRequest worklogModifyRequest){
-        worklogService.modifyWorkLog(sid, worklogModifyRequest);
+    public void modifyWorkLog(@PathVariable Long sid, @RequestBody WorkLogModifyRequest workLogModifyRequest){
+        workLogService.modifyWorkLog(sid, workLogModifyRequest);
     }
 
     @DeleteMapping(value = "{sid}")
-    public void removeWoklog(@PathVariable Long sid){
-        worklogService.removeWorkLog(sid);
+    public void removeWorkLog(@PathVariable Long sid){
+        workLogService.removeWorkLog(sid);
     }
 
     

@@ -14,22 +14,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class WorkLogServiceImpl implements WorkLogService {
-    private final WorkLogRepository worklogRepository;
+    private final WorkLogRepository workLogRepository;
 
     @Override
-    public void addWorkLog(WorkLogCreateRequest worklogCreateRequest) {
-        WorkLog worklog = WorkLog.builder()
-                .userSid(worklogCreateRequest.getUserSid())
-                .content(worklogCreateRequest.getContent())
-                .workingDate(worklogCreateRequest.getWorkingDate())
+    public void addWorkLog(WorkLogCreateRequest workLogCreateRequest) {
+        WorkLog workLog = WorkLog.builder()
+                .userSid(workLogCreateRequest.getUserSid())
+                .content(workLogCreateRequest.getContent())
+                .workingDate(workLogCreateRequest.getWorkingDate())
                 .build();
 
-        worklogRepository.save(worklog);
+        workLogRepository.save(workLog);
     }
 
     @Override
-    public void modifyWorkLog(Long sid, WorkLogModifyRequest worklogModifyRequest) {
-        Optional<WorkLog> optional = worklogRepository.findById(sid);
+    public void modifyWorkLog(Long sid, WorkLogModifyRequest workLogModifyRequest) {
+        Optional<WorkLog> optional = workLogRepository.findById(sid);
 
     }
 
