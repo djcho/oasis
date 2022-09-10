@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "oasis_user")
 public class User extends BaseEntity {
 
     @Id
@@ -22,14 +23,18 @@ public class User extends BaseEntity {
 
     @Email(message = "Invalid [id] format")
     @NotNull(message = "[id] cannot be null")
+    @Column(name = "user_id")
     private String id;
     
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
     private Role role;
 
     @NotNull(message = "[name] cannot be null")
+    @Column(name = "user_name")
     private String name;
-    
+
+    @Column(name = "user_passeword")
     private String password;
     
     // user:position(many:one 단방향 매핑) 
