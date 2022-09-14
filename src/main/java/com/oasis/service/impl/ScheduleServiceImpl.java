@@ -1,6 +1,8 @@
 package com.oasis.service.impl;
 
+import com.oasis.common.exception.CommonException;
 import com.oasis.data.dto.request.ScheduleRequestDto;
+import com.oasis.data.dto.response.DepartmentResponseDto;
 import com.oasis.data.dto.response.ScheduleResponseDto;
 import com.oasis.data.entity.Schedule;
 import com.oasis.data.entity.User;
@@ -14,6 +16,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.oasis.common.constant.ErrorCode.NOT_FOUND_SCHEDULE;
+
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
     final ScheduleRepository scheduleRepository;
@@ -26,7 +30,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ScheduleResponseDto getSchedule(Long scheduleSid) throws Exception{
+    public ScheduleResponseDto getSchedule(Long scheduleSid){
         return this.scheduleRepository.findById(scheduleSid).map(schedule -> ScheduleResponseDto.builder()
                 .sid(schedule.getSid())
                 .name(schedule.getName())
@@ -34,12 +38,26 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .date(schedule.getDate())
                 .createdTime(schedule.getCreatedAt())
                 .updatedTime(schedule.getUpdatedAt())
-        .build()).orElseThrow(() -> new Exception("not found entity."));
+        .build()).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
+    }
+
+    @Override
+    public List<ScheduleResponseDto> getAllSchedules() {
+        return this.scheduleRepository.findAll().stream()
+                .map(schedule -> ScheduleResponseDto.builder()
+                        .sid(schedule.getSid())
+                        .name(schedule.getName())
+                        .content(schedule.getContent())
+                        .date(schedule.getDate())
+                        .createdTime(schedule.getCreatedAt())
+                        .updatedTime(schedule.getUpdatedAt())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Override
     public ScheduleResponseDto saveSchedule(Long userSid, ScheduleRequestDto scheduleRequestDto) {
-        User user = this.userRepository.findById(userSid).orElseThrow();
+        User user = this.userRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
 
         Schedule schedule = Schedule.builder()
                 .name(scheduleRequestDto.getName())
@@ -60,8 +78,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ScheduleResponseDto updateSchedule(Long scheduleSid, ScheduleRequestDto scheduleRequestDto) throws Exception {
-        Schedule schedule = this.scheduleRepository.findById(scheduleSid).orElseThrow(() -> new Exception("not found entity."));
+    public ScheduleResponseDto updateSchedule(Long scheduleSid, ScheduleRequestDto scheduleRequestDto) {
+        Schedule schedule = this.scheduleRepository.findById(scheduleSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
 
         if(!scheduleRequestDto.getContent().isEmpty())
             schedule.setContent(scheduleRequestDto.getContent());
