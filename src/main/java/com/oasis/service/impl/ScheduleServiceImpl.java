@@ -2,10 +2,9 @@ package com.oasis.service.impl;
 
 import com.oasis.common.exception.CommonException;
 import com.oasis.data.dto.request.ScheduleRequestDto;
-import com.oasis.data.dto.response.DepartmentResponseDto;
 import com.oasis.data.dto.response.ScheduleResponseDto;
 import com.oasis.data.entity.Schedule;
-import com.oasis.data.entity.User;
+import com.oasis.data.entity.Member;
 import com.oasis.repository.ScheduleRepository;
 import com.oasis.repository.UserRepository;
 import com.oasis.service.ScheduleService;
@@ -57,13 +56,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleResponseDto saveSchedule(Long userSid, ScheduleRequestDto scheduleRequestDto) {
-        User user = this.userRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
+        Member member = this.userRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
 
         Schedule schedule = Schedule.builder()
                 .name(scheduleRequestDto.getName())
                 .content(scheduleRequestDto.getContent())
                 .date(scheduleRequestDto.getDate())
-                .user(user)
+                .member(member)
                 .build();
 
         Schedule savedSchedule = this.scheduleRepository.save(schedule);

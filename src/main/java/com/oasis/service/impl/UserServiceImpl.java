@@ -1,7 +1,7 @@
 package com.oasis.service.impl;
 
 import com.oasis.data.dto.request.UserRequestDto;
-import com.oasis.data.entity.User;
+import com.oasis.data.entity.Member;
 import com.oasis.repository.UserRepository;
 import com.oasis.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +17,17 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User createUser(UserRequestDto userRequestDto) {
+    public Member createUser(UserRequestDto userRequestDto) {
         return userRepository.save(userRequestDto.toUser());
     }
 
     @Override
-    public List<User> getAllUsers(Pageable pageable) {
+    public List<Member> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable).toList();
     }
 
     @Override
-    public User getOneUser(Long sid) {
+    public Member getOneUser(Long sid) {
         // TODO :: exception 생각 
         return userRepository.findById(sid).orElseThrow();
     }
