@@ -5,6 +5,7 @@
 
 # Node artifact files
 node_modules/
+build/
 dist/
 
 # Compiled Java class files
@@ -48,3 +49,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+build/
+.gradle/

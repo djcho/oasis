@@ -1,14 +1,13 @@
 package com.oasis.data.entity;
 
 import com.oasis.common.constant.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -18,21 +17,34 @@ import javax.validation.constraints.NotNull;
 @Table(name = "oasis_user")
 public class User extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sid;
+
     @Email(message = "Invalid [id] format")
     @NotNull(message = "[id] cannot be null")
+    @Column(name = "user_id")
     private String id;
     
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
     private Role role;
 
     @NotNull(message = "[name] cannot be null")
+    @Column(name = "user_name")
     private String name;
-    
+
+    @Column(name = "user_passeword")
     private String password;
     
     // user:position(many:one 단방향 매핑) 
     @ManyToOne
-    @JoinColumn(name = "sid")
-    private Position position;
-    
+    @JoinColumn(name = "work_position_sid")
+    private WorkPosition workPosition;
+
+    //N:1 양방향 관계, 관계 주인 : Schedule entity
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    private List<Schedule> scheduleList = new ArrayList<>();
 }

@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "oasis_position", uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
-public class Position {
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
+public class WorkPosition {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
     
     private Long level;
