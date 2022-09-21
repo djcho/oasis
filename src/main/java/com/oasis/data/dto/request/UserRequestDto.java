@@ -1,7 +1,7 @@
 package com.oasis.data.dto.request;
 
-import com.oasis.common.constant.Role;
-import com.oasis.data.entity.User;
+import com.oasis.common.constant.MemberRole;
+import com.oasis.data.entity.Member;
 import com.oasis.data.entity.WorkPosition;
 import lombok.*;
 
@@ -14,15 +14,15 @@ public class UserRequestDto {
     
     private String id;
     private String name;
-    private Role role;
+    private MemberRole memberRole;
     private String password;
     private WorkPosition workPosition;
     
-    public User toUser(){
-        return User.builder()
+    public Member toUser(){
+        return Member.builder()
                 .id(this.id)
                 .name(this.name)
-                .role(this.role)
+                .memberRole(this.memberRole)
                 .password(this.password)
                 .workPosition(this.workPosition)
                 .build();
