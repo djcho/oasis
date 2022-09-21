@@ -2,7 +2,7 @@ package com.oasis.controller;
 
 import com.oasis.data.dto.request.UserRequestDto;
 import com.oasis.data.entity.Member;
-import com.oasis.service.UserService;
+import com.oasis.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,16 +13,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class UserController {
+public class MemberController {
     
-    private final UserService userService;
+    private final MemberService memberService;
     
     /**
      * 전체 사용자 조회 (TODO :: 조회조건 필요)
      * */
     @GetMapping("/users")
     public ResponseEntity<List<Member>> getAllUsers(Pageable userPage) {
-        return new ResponseEntity<>(userService.getAllUsers(userPage), HttpStatus.OK);
+        return new ResponseEntity<>(memberService.getAllMembers(userPage), HttpStatus.OK);
     }
     
     /**
@@ -30,7 +30,7 @@ public class UserController {
      * */
     @GetMapping("/users/{userSid}")
     public ResponseEntity<Member> getOneUser(@PathVariable Long userSid) {
-        return new ResponseEntity<>(userService.getOneUser(userSid), HttpStatus.OK);
+        return new ResponseEntity<>(memberService.getOneMember(userSid), HttpStatus.OK);
     }
 
     /**
@@ -39,7 +39,7 @@ public class UserController {
     // TODO :: 이하 롤체크 필요 
     @PostMapping("/users")
     public ResponseEntity<Member> createUser(@RequestBody UserRequestDto userRequestDto) {
-        return new ResponseEntity<>(userService.createUser(userRequestDto), HttpStatus.OK);
+        return new ResponseEntity<>(memberService.createMember(userRequestDto), HttpStatus.OK);
     }
 
     /**
@@ -47,7 +47,7 @@ public class UserController {
      * */
     @DeleteMapping("/users/{userSid}")
     public ResponseEntity deleteUser(@PathVariable Long userSid) {
-        userService.deleteOneUser(userSid);
+        memberService.deleteOneMember(userSid);
         return new ResponseEntity(HttpStatus.OK);
     }
     

@@ -6,7 +6,7 @@ import com.oasis.data.dto.response.ScheduleResponseDto;
 import com.oasis.data.entity.Schedule;
 import com.oasis.data.entity.Member;
 import com.oasis.repository.ScheduleRepository;
-import com.oasis.repository.UserRepository;
+import com.oasis.repository.MemberRepository;
 import com.oasis.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,12 @@ import static com.oasis.common.constant.ErrorCode.NOT_FOUND_SCHEDULE;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
     final ScheduleRepository scheduleRepository;
-    final UserRepository userRepository;
+    final MemberRepository memberRepository;
 
     @Autowired
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, UserRepository userRepository) {
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, MemberRepository memberRepository) {
         this.scheduleRepository = scheduleRepository;
-        this.userRepository = userRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleResponseDto saveSchedule(Long userSid, ScheduleRequestDto scheduleRequestDto) {
-        Member member = this.userRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
+        Member member = this.memberRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
 
         Schedule schedule = Schedule.builder()
                 .name(scheduleRequestDto.getName())
