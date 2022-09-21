@@ -1,7 +1,6 @@
 package com.oasis.common.constant;
 
-// TODO :: common/constant의 성격과 맞을까요?(계속 성격타령해서 죄송합니다)
-public enum Role {
+public enum MemberRole {
     
     ADMIN("ADMIN"),
     NORMAL("NORMAL"),
@@ -9,7 +8,7 @@ public enum Role {
     
     String role;
     
-    Role(String role){
+    MemberRole(String role){
         this.role = role;
     }
     

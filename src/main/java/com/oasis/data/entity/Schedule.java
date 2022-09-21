@@ -21,7 +21,7 @@ public class Schedule extends BaseEntity{
 
     //N:1 양방향 관계, 관계의 주인으로 지정
     @ManyToOne
-    //@JoinColumn(name = "user_sid")
+    @JoinColumn(name = "member_sid")
     @ToString.Exclude
-    private User user;
+    private Member member;
 }
