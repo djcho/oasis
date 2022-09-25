@@ -11,7 +11,7 @@ public enum ErrorCode {
     SUCCESS(OK, "성공"),
 
     /* 400 BAD_REQUEST : 잘못된 요청 */
-    INVALID_PARAM(BAD_REQUEST, "유효하지 않은 입력 입니다."),
+    INVALID_PARAM(BAD_REQUEST, "유효하지 않은 입력입니다."),
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
     INVALID_AUTH_TOKEN(UNAUTHORIZED, "유효하지 않은 인증 토큰입니다."),

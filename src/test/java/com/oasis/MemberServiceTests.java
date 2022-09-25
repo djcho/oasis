@@ -1,29 +1,76 @@
 package com.oasis;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oasis.common.constant.MemberRole;
+import com.oasis.controller.MemberController;
+import com.oasis.data.dto.request.MemberCreateRequestDto;
 import com.oasis.service.DepartmentService;
 import com.oasis.service.MemberService;
 import com.oasis.service.WorkDutyService;
 import com.oasis.service.WorkPositionService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @ActiveProfiles("devsora")
 public class MemberServiceTests {
     
     @Autowired
-    MemberService memberService;
-
+    WebApplicationContext ctx;
+    
     @Autowired
-    DepartmentService departmentService;
-
-    @Autowired
-    WorkDutyService workDutyService;
-
-    @Autowired
-    WorkPositionService workPositionService;
+    ObjectMapper objectMapper;
+    
+    MockMvc mockMvc;
+    
+    @BeforeEach
+    public void before() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+    }
+    
+    @Test
+    public void getUserApiTest() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/users");
+        ResultActions actions = mockMvc.perform(request);
+        actions.andExpect(status().isOk()).andDo(print());
+    }
+    
+    @Test
+    public void createUserApiTest() throws Exception {
+        
+        MemberCreateRequestDto dto = new MemberCreateRequestDto();
+        dto.setId("sora@pentasecurity.com");
+        dto.setName("sora");
+        dto.setPassword("sora1234");
+        dto.setMemberRole(MemberRole.NORMAL);
+        dto.setDepartmentSid("6");
+        dto.setWorkPositionSid("2");
+        dto.setWorkDutySid("2");
+        
+        String content = objectMapper.writeValueAsString(dto);
+        RequestBuilder request = MockMvcRequestBuilders.post("/users")
+                .content(content).contentType(MediaType.APPLICATION_JSON);
+        ResultActions actions = mockMvc.perform(request);
+        actions.andExpect(status().isOk());
+        
+    }
     
     
     @Test

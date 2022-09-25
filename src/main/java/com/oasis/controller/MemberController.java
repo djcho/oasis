@@ -1,10 +1,12 @@
 package com.oasis.controller;
 
-import com.oasis.data.dto.request.UserRequestDto;
+import com.oasis.data.dto.request.MemberCreateRequestDto;
 import com.oasis.data.entity.Member;
 import com.oasis.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,15 @@ public class MemberController {
     private final MemberService memberService;
     
     /**
-     * 전체 사용자 조회 (TODO :: 조회조건 필요)
+     * 전체 사용자 조회 (TODO :: 검색 조건 추가 필요)
      * */
     @GetMapping("/users")
-    public ResponseEntity<List<Member>> getAllMembers(Pageable userPage) {
+    public ResponseEntity<List<Member>> getAllMembers(
+            @PageableDefault(size = 50) 
+            @SortDefault.SortDefaults({
+                @SortDefault(sort = "department"),
+                @SortDefault(sort = "workDuty"),
+                @SortDefault(sort = "workPosition")}) Pageable userPage) {
         return new ResponseEntity<>(memberService.getAllMembers(userPage), HttpStatus.OK);
     }
     
@@ -38,8 +45,15 @@ public class MemberController {
      * */
     // TODO :: 이하 롤체크 필요 
     @PostMapping("/users")
-    public ResponseEntity<Member> createMember(@RequestBody UserRequestDto userRequestDto) {
-        return new ResponseEntity<>(memberService.createMember(userRequestDto), HttpStatus.OK);
+    public ResponseEntity<Member> createMember(@RequestBody MemberCreateRequestDto memberCreateRequestDto) {
+        return new ResponseEntity<>(memberService.createMember(memberCreateRequestDto), HttpStatus.OK);
+    }
+    
+    /**
+     * 사용자 비밀번호 수정
+     * */
+    public ResponseEntity<Member> updatePassword() {
+        return null;
     }
 
     /**
