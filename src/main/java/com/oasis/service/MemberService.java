@@ -9,7 +9,9 @@ import java.util.List;
 public interface MemberService {
     
     Member createMember(UserRequestDto userRequestDto);
+    void createMember(Member member);
     List<Member> getAllMembers(Pageable pageable);
+    List<Member> getAllMembers();
     Member getOneMember(Long sid);
     void deleteOneMember(Long sid);
     

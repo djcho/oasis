@@ -1,24 +1,25 @@
 package com.oasis.data.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Department extends BaseEntity {
-
+public class WorkDuty {
+    
+    // TODO :: level을 둬야할까? 
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
     
-    private Long parentSid;
-    
     private String name;
     
-    private int level;
 }

@@ -21,7 +21,7 @@ public class MemberController {
      * 전체 사용자 조회 (TODO :: 조회조건 필요)
      * */
     @GetMapping("/users")
-    public ResponseEntity<List<Member>> getAllUsers(Pageable userPage) {
+    public ResponseEntity<List<Member>> getAllMembers(Pageable userPage) {
         return new ResponseEntity<>(memberService.getAllMembers(userPage), HttpStatus.OK);
     }
     
@@ -29,7 +29,7 @@ public class MemberController {
      * 특정 사용자 조회
      * */
     @GetMapping("/users/{userSid}")
-    public ResponseEntity<Member> getOneUser(@PathVariable Long userSid) {
+    public ResponseEntity<Member> getOneMember(@PathVariable Long userSid) {
         return new ResponseEntity<>(memberService.getOneMember(userSid), HttpStatus.OK);
     }
 
@@ -38,7 +38,7 @@ public class MemberController {
      * */
     // TODO :: 이하 롤체크 필요 
     @PostMapping("/users")
-    public ResponseEntity<Member> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<Member> createMember(@RequestBody UserRequestDto userRequestDto) {
         return new ResponseEntity<>(memberService.createMember(userRequestDto), HttpStatus.OK);
     }
 
@@ -46,7 +46,7 @@ public class MemberController {
      * 사용자 삭제 
      * */
     @DeleteMapping("/users/{userSid}")
-    public ResponseEntity deleteUser(@PathVariable Long userSid) {
+    public ResponseEntity deleteMember(@PathVariable Long userSid) {
         memberService.deleteOneMember(userSid);
         return new ResponseEntity(HttpStatus.OK);
     }

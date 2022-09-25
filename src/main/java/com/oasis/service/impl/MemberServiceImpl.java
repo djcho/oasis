@@ -20,10 +20,20 @@ public class MemberServiceImpl implements MemberService {
     public Member createMember(UserRequestDto userRequestDto) {
         return memberRepository.save(userRequestDto.toUser());
     }
+    
+    @Override
+    public void createMember(Member member) {
+        memberRepository.save(member);
+    }
 
     @Override
     public List<Member> getAllMembers(Pageable pageable) {
         return memberRepository.findAll(pageable).toList();
+    }
+
+    @Override
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
     }
 
     @Override

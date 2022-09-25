@@ -25,6 +25,10 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
+    @ManyToOne
+    @JoinColumn(name = "department_sid")
+    private Department department;
+    
     @NotNull(message = "[name] cannot be null")
     private String name;
 
@@ -34,5 +38,9 @@ public class Member extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "work_position_sid")
     private WorkPosition workPosition;
+    
+    @ManyToOne
+    @JoinColumn(name = "work_duty_sid")
+    private WorkDuty workDuty;
 
 }

@@ -21,6 +21,6 @@ public class WorkPosition {
     
     private Long level;
     
-    private String name; 
+    private String name;
     
 }
