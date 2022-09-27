@@ -20,18 +20,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
-    /*
-    @PostConstruct
-    public void init() {
-        Department department = Department.builder()
-                .name("/")
-                .level(0)
-                .parentSid(0L)
-                .build();
-        departmentRepository.save(department);
-    }
-    */
-
     public List<DepartmentResponse> list() {
         return departmentRepository.findAll().stream()
                 .map(d -> new DepartmentResponse(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
