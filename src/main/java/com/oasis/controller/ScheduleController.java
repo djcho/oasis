@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/{userSid}")
-    public ResponseEntity<CommonResponse> createSchedule(@PathVariable Long userSid, @RequestBody ScheduleRequestDto scheduleRequestDto){
+    public ResponseEntity<CommonResponse> createSchedule(@PathVariable Long userSid, @Valid @RequestBody ScheduleRequestDto scheduleRequestDto){
         ScheduleResponseDto scheduleResponseDto = this.scheduleService.saveSchedule(userSid, scheduleRequestDto);
 
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, scheduleResponseDto);

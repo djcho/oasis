@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class Member extends BaseEntity {
 
     @Id

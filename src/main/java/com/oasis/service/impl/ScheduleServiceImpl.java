@@ -5,8 +5,10 @@ import com.oasis.data.dto.request.ScheduleRequestDto;
 import com.oasis.data.dto.response.ScheduleResponseDto;
 import com.oasis.data.entity.Schedule;
 import com.oasis.data.entity.Member;
+import com.oasis.data.entity.ScheduleType;
 import com.oasis.repository.ScheduleRepository;
 import com.oasis.repository.MemberRepository;
+import com.oasis.repository.ScheduleTypeRepository;
 import com.oasis.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +17,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.oasis.common.constant.ErrorCode.NOT_FOUND_SCHEDULE;
+import static com.oasis.common.constant.ErrorCode.*;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
     final ScheduleRepository scheduleRepository;
+    final ScheduleTypeRepository scheduleTypeRepository;
     final MemberRepository memberRepository;
 
     @Autowired
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, MemberRepository memberRepository) {
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, ScheduleTypeRepository scheduleTypeRepository, MemberRepository memberRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.scheduleTypeRepository = scheduleTypeRepository;
         this.memberRepository = memberRepository;
     }
 
@@ -56,14 +60,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleResponseDto saveSchedule(Long userSid, ScheduleRequestDto scheduleRequestDto) {
-        Member member = this.memberRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
+        Member member = this.memberRepository.findById(userSid).orElseThrow(() -> new CommonException(NOT_FOUND_MEMBER));
 
-        Schedule schedule = Schedule.builder()
-                .name(scheduleRequestDto.getName())
-                .content(scheduleRequestDto.getContent())
-                .date(scheduleRequestDto.getDate())
-                .member(member)
-                .build();
+        Schedule schedule = scheduleRequestDto.toSchedule();
+        schedule.setMember(member);
 
         Schedule savedSchedule = this.scheduleRepository.save(schedule);
         return ScheduleResponseDto.builder()
@@ -86,6 +86,11 @@ public class ScheduleServiceImpl implements ScheduleService {
             schedule.setName(scheduleRequestDto.getName());
         if(!scheduleRequestDto.getDate().isEqual(scheduleRequestDto.getDate()))
             schedule.setDate(scheduleRequestDto.getDate());
+        if(scheduleRequestDto.getScheduleTypeSid() != 0L) {
+            ScheduleType scheduleType = scheduleTypeRepository.findById(scheduleRequestDto.getScheduleTypeSid())
+                    .orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE_TYPE));
+            schedule.setScheduleType(scheduleType);
+        }
 
         schedule.setUpdatedAt(LocalDateTime.now());
 
@@ -102,7 +107,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void deleteSchedule(Long scheduleSid) {
-        this.scheduleRepository.deleteById(scheduleSid);
+        Schedule schedule = this.scheduleRepository.findById(scheduleSid).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
+        this.scheduleRepository.deleteById(schedule.getSid());
     }
 
     @Override
