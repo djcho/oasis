@@ -1,5 +1,6 @@
 package com.oasis.data.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.oasis.common.constant.ErrorCode;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class CommonResponse<T> {
     private final String error;
     private final String code;
     private final String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final T data;
 
     public static <T> ResponseEntity<CommonResponse> toResponseEntity(ErrorCode errorCode, @Nullable T data) {

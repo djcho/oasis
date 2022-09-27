@@ -8,3 +8,22 @@ insert into oasis_department(sid, parent_sid, name, level, create_dttm, modify_d
 insert into oasis_department(sid, parent_sid, name, level, create_dttm, modify_dttm)values(7, 3, '개발2팀', 3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 insert into oasis_department(sid, parent_sid, name, level, create_dttm, modify_dttm)values(8, 3, '개발3팀', 3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 insert into oasis_department(sid, parent_sid, name, level, create_dttm, modify_dttm)values(9, 3, '개발4팀', 3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+
+insert into work_position(sid, name, level) values(1, "사원", 0);
+insert into work_position(sid, name, level) values(2, "대리", 1);
+insert into work_position(sid, name, level) values(3, "과장", 2);
+insert into work_position(sid, name, level) values(4, "차장", 3);
+insert into work_position(sid, name, level) values(5, "부장", 4);
+insert into work_position(sid, name, level) values(6, "이사보", 5);
+insert into work_position(sid, name, level) values(7, "이사", 6);
+
+insert into member(sid, id, member_role, name, password, created_at, updated_at)values (1, 'djcho@pentasecurity.com', 'ADMIN', '조대준', 'jkljkl..', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(sid, id, member_role, name, password, created_at, updated_at)values (2, 'yesora@pentasecurity.com', 'ADMIN', '최예소라', 'jkljkl..', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(sid, id, member_role, name, password, created_at, updated_at)values (3, 'jwmoon@pentasecurity.com', 'ADMIN', '문장완', 'jkljkl..', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(sid, id, member_role, name, password, created_at, updated_at)values (4, 'yjshin@pentasecurity.com', 'ADMIN', '신예진', 'jkljkl..', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+
+insert into schedule_type(sid, name) values(1, 'WFH');
+insert into schedule_type(sid, name) values(2, 'DAYOFF');
+insert into schedule_type(sid, name) values(3, 'NOONOFF');
+insert into schedule_type(sid, name) values(4, 'MORNINGOFF');
+insert into schedule_type(sid, name) values(5, 'ETC');
