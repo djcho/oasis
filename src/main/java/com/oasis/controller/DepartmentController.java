@@ -1,7 +1,7 @@
 package com.oasis.controller;
 
-import com.oasis.data.dto.request.DepartmentRequestDto;
-import com.oasis.data.dto.response.DepartmentResponseDto;
+import com.oasis.data.dto.request.DepartmentRequest;
+import com.oasis.data.dto.response.DepartmentResponse;
 import com.oasis.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +16,18 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @GetMapping
-    public List<DepartmentResponseDto> list() {
+    public List<DepartmentResponse> list() {
 
         return departmentService.list();
     }
-    
 
     @PostMapping
-    public void save(@RequestBody DepartmentRequestDto departmentRequestDto) {
+    public void save(@RequestBody DepartmentRequest departmentRequestDto) {
         departmentService.save(departmentRequestDto);
     }
 
     @PatchMapping("/{deptSid}")
-    public void update(@PathVariable Long deptSid, @RequestBody DepartmentRequestDto departmentRequestDto) {
+    public void update(@PathVariable Long deptSid, @RequestBody DepartmentRequest departmentRequestDto) {
         departmentService.update(deptSid, departmentRequestDto);
     }
 
@@ -39,7 +38,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/{deptSid}")
-    public DepartmentResponseDto detail(@PathVariable Long deptSid) {
+    public DepartmentResponse detail(@PathVariable Long deptSid) {
         return departmentService.detail(deptSid);
     }
 

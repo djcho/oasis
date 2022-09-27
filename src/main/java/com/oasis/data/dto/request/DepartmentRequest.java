@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentRequestDto {
+public class DepartmentRequest {
     private Long sid;
     private Long parentSid;
     private String name;
