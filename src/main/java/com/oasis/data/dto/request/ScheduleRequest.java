@@ -1,7 +1,6 @@
 package com.oasis.data.dto.request;
 
 import com.oasis.common.util.ModelMapperUtils;
-import com.oasis.data.entity.Member;
 import com.oasis.data.entity.Schedule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,9 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleRequestDto {
+public class ScheduleRequest {
+    private Long memberSid;
+
     @NotNull(message = "[name]은 null일 수 없습니다.")
     private String name;
 

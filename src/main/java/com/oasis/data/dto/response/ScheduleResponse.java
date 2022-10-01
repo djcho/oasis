@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScheduleResponseDto {
+public class ScheduleResponse {
     private Long sid;
     private String name;
     private String content;

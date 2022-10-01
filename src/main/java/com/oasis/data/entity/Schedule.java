@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "member_sid", "schedule_type_sid"})})
 public class Schedule extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class Schedule extends BaseEntity{
     //1:1 단방향 관계, ScheduleType 에선 Schedule 을 참조할 필요가 없음
     // JoinColumn 로 외래키 확보
     @OneToOne
-    @JoinColumn(name = "schedule_sid")
+    @JoinColumn(name = "schedule_type_sid")
     @NotNull(message = "[scheduleType] can not be null")
     ScheduleType scheduleType;
 
