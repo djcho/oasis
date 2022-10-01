@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/schedules")
+@RequestMapping("/api/v1/schedules")
 public class ScheduleController {
     private final ScheduleService scheduleService;
     private final Logger LOGGER = LoggerFactory.getLogger(ScheduleController.class);
