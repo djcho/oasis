@@ -17,6 +17,7 @@ public class DateUtilsTest {
         LocalDate start = DateUtils.getFirstDayOfMonth(date);
         LocalDate end = DateUtils.getLastDayOfMonth(date);
 
+        System.out.println(end);
         int remainDay = DateUtils.remainDaysOfMonth(start, end);
 
         assertThat(remainDay + 1).isEqualTo(date.lengthOfMonth());

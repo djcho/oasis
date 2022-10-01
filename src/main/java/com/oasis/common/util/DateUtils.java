@@ -19,7 +19,7 @@ public class DateUtils {
 
     public static int countByWorkingDay(LocalDate date) {
         LocalDate start = getFirstDayOfMonth(date);
-        LocalDate end = getLastDayOfMonth(date);
+        LocalDate end = getLastDayOfMonth(date).plusDays(1);
 
         long ret = start.datesUntil(end).filter(d -> isWorkingDay(d)).count();
 
