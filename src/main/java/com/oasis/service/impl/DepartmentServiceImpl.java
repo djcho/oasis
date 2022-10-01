@@ -36,6 +36,15 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .build();
         departmentRepository.save(department);
     }
+    
+    public void saveAll(List<Department> departments) {
+        departmentRepository.saveAll(departments);
+    }
+    
+    public void deleteAll() {
+        departmentRepository.deleteAll();
+    }
+    
     @Transactional
     public void update(Long sid, DepartmentRequest dto) {
         Department current = departmentRepository.findById(sid).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));

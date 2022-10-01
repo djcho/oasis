@@ -1,15 +1,12 @@
 package com.oasis.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Builder
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"level", "name"})})
@@ -21,6 +18,6 @@ public class WorkPosition {
     
     private Long level;
     
-    private String name; 
+    private String name;
     
 }

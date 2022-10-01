@@ -6,19 +6,17 @@ import javax.persistence.*;
 
 @Entity
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Department extends BaseEntity {
-
+public class WorkDuty {
+    
+    // TODO :: level을 둬야할까? 
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
     
-    private Long parentSid;
-    
     private String name;
     
-    private int level;
 }
