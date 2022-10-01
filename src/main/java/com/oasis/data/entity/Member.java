@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Builder
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member extends BaseEntity {
@@ -21,12 +21,16 @@ public class Member extends BaseEntity {
     @Email(message = "Invalid [id] format")
     @NotNull(message = "[id] cannot be null")
     private String id;
+
+    @NotNull(message = "[name] cannot be null")
+    private String name;
     
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
-    @NotNull(message = "[name] cannot be null")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "department_sid")
+    private Department department;
 
     private String password;
     
@@ -34,5 +38,9 @@ public class Member extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "work_position_sid")
     private WorkPosition workPosition;
+    
+    @ManyToOne
+    @JoinColumn(name = "work_duty_sid")
+    private WorkDuty workDuty;
 
 }
