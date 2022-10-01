@@ -2,12 +2,14 @@ package com.oasis.service.impl;
 
 import com.oasis.common.constant.ErrorCode;
 import com.oasis.common.exception.CommonException;
+import com.oasis.common.util.ModelMapperUtils;
 import com.oasis.data.dto.request.DepartmentRequest;
 import com.oasis.data.dto.response.DepartmentResponse;
 import com.oasis.data.entity.Department;
 import com.oasis.repository.DepartmentRepository;
 import com.oasis.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,11 +38,13 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .build();
         departmentRepository.save(department);
     }
-    
+
+    @Transactional
     public void saveAll(List<Department> departments) {
         departmentRepository.saveAll(departments);
     }
-    
+
+    @Transactional
     public void deleteAll() {
         departmentRepository.deleteAll();
     }
@@ -69,8 +73,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public DepartmentResponse detail(Long sid) {
+        ModelMapper mapper = ModelMapperUtils.getModelMapper();
         return departmentRepository.findById(sid)
-                .map(d -> new DepartmentResponse(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
+                .map(d -> mapper.map(d, DepartmentResponse.class))
                 .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
     }
 }
