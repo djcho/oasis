@@ -10,7 +10,6 @@ import java.util.List;
 public interface MemberService {
     
     Member createMember(MemberCreationRequest memberCreationRequest);
-    void createMember(Member member);
     List<Member> getAllMembers(Pageable pageable);
     List<Member> getAllMembers();
     Member getOneMember(Long sid);

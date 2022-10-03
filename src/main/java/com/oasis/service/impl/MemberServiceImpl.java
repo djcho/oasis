@@ -23,13 +23,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member createMember(MemberCreationRequest memberCreationRequest) {
+        if(memberRepository.findById(memberCreationRequest.getId()).isPresent()) {
+            throw new CommonException(ErrorCode.DUPLICATION_MEMBER);
+        }
         memberCreationRequest.setPassword(passwordEncoder.encode(memberCreationRequest.getPassword()));
         return memberRepository.save(memberCreationRequest.toMember());
-    }
-
-    @Override
-    public void createMember(Member member) {
-        memberRepository.save(member);
     }
 
     @Override
