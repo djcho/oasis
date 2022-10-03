@@ -2,8 +2,11 @@ package com.oasis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oasis.common.constant.MemberRole;
-import com.oasis.controller.MemberController;
-import com.oasis.data.dto.request.MemberCreateRequestDto;
+import com.oasis.data.dto.request.MemberCreationRequest;
+import com.oasis.data.entity.Department;
+import com.oasis.data.entity.Member;
+import com.oasis.data.entity.WorkDuty;
+import com.oasis.data.entity.WorkPosition;
 import com.oasis.service.DepartmentService;
 import com.oasis.service.MemberService;
 import com.oasis.service.WorkDutyService;
@@ -11,22 +14,23 @@ import com.oasis.service.WorkPositionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 @ActiveProfiles("devsora")
@@ -38,6 +42,18 @@ public class MemberServiceTests {
     @Autowired
     ObjectMapper objectMapper;
     
+    @Autowired
+    WorkPositionService workPositionService;
+    
+    @Autowired
+    WorkDutyService workDutyService;
+    
+    @Autowired
+    DepartmentService departmentService;
+    
+    @Autowired
+    MemberService memberService;
+    
     MockMvc mockMvc;
     
     @BeforeEach
@@ -47,7 +63,7 @@ public class MemberServiceTests {
     
     @Test
     public void getUserApiTest() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/users");
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/members");
         ResultActions actions = mockMvc.perform(request);
         actions.andExpect(status().isOk()).andDo(print());
     }
@@ -55,14 +71,14 @@ public class MemberServiceTests {
     @Test
     public void createUserApiTest() throws Exception {
         
-        MemberCreateRequestDto dto = new MemberCreateRequestDto();
+        MemberCreationRequest dto = new MemberCreationRequest();
         dto.setId("sora@pentasecurity.com");
         dto.setName("sora");
         dto.setPassword("sora1234");
         dto.setMemberRole(MemberRole.NORMAL);
-        dto.setDepartmentSid("6");
-        dto.setWorkPositionSid("2");
-        dto.setWorkDutySid("2");
+        dto.setDepartmentSid(6L);
+        dto.setWorkPositionSid(2L);
+        dto.setWorkDutySid(2L);
         
         String content = objectMapper.writeValueAsString(dto);
         RequestBuilder request = MockMvcRequestBuilders.post("/users")
@@ -74,8 +90,8 @@ public class MemberServiceTests {
     
     
     @Test
-    public void createUserTest() {
-        /*
+    public void createDataForTest() {
+        
         // start of creating temporary Department 
         Department level0 = Department.builder().level(0).parentSid(0L).name("/").build();
         Department level1 = Department.builder().level(1).parentSid(0L).name("보안기술연구소").build();
@@ -117,6 +133,7 @@ public class MemberServiceTests {
         workDutyService.createWorkDuty(workDuty2);
         // end of creating temporary WorkDuty 
         
+        /*
         
         IntStream.range(1,31).forEach(i -> {
             
@@ -139,7 +156,9 @@ public class MemberServiceTests {
             memberService.getAllMembers().stream().forEach(System.out::println);
             
         });
+        
          */
+         
         
 
     }

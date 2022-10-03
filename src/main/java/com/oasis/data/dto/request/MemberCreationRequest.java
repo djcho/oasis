@@ -12,7 +12,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberCreateRequestDto {
+public class MemberCreationRequest {
     
     private Long sid;
     private String id;
