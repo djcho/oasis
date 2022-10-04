@@ -26,9 +26,6 @@ public class StatisticsServiceImpl implements StatisticsService {
     private final StatisticsRepository statisticsRepository;
     private final ScheduleService scheduleService;
     private final MemberService memberService;
-    private final MutableStatisticsRepository mutableStatisticsRepository;
-    private final ImmutableStatisticsRepository immutableStatisticsRepository;
-
     private void aggregateScheduleByMemberSid(Long memberSid) {
     }
 
@@ -42,6 +39,8 @@ public class StatisticsServiceImpl implements StatisticsService {
         //scheduleService.getScheduleByUserSid()
 
         // 멤버 리스트를 불러옴
+        List<Member> members = memberService.getAllMembers();
+
         // 멤버 리스트와 멤버 스케
     }
 
@@ -69,7 +68,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         statisticsRepository.saveAll(initStatistics);
     }
 
-    public Statistics calculateWorkingRate(Statistics s){
+    private Statistics calculateWorkingRate(Statistics s){
         long workingDay = s.getWorkingDayCount();
         long officeWorkCount = s.getOfficeWorkCount();
         long remoteWorkCount = s.getRemoteWorkCount();
