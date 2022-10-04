@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/statistics")
@@ -15,11 +17,12 @@ public class StatisticsController {
     private final StatisticsService statisticsService;
 
     @GetMapping("/monthly")
-    private ResponseEntity<CommonResponse> monthly(@RequestParam String startDate,
-                                                   @RequestParam String endDate) {
+    private ResponseEntity<CommonResponse> monthly(@RequestParam int year) {
 
 
-        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
+
+
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, statisticsService.monthly(year));
     }
 
     @GetMapping("/users")

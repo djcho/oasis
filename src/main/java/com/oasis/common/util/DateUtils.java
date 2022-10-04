@@ -2,6 +2,7 @@ package com.oasis.common.util;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
 
 public class DateUtils {
@@ -29,5 +30,13 @@ public class DateUtils {
     public static boolean isWorkingDay(LocalDate date) {
         DayOfWeek dow = date.getDayOfWeek();
         return (dow != DayOfWeek.SATURDAY && dow != DayOfWeek.SUNDAY);
+    }
+
+    public static LocalDate firstDayOfYear(int year) {
+        return LocalDate.of(year, Month.JANUARY, 1);
+    }
+
+    public static LocalDate lastDayOfYear(int year) {
+        return LocalDate.of(year, Month.DECEMBER, Month.DECEMBER.maxLength());
     }
 }

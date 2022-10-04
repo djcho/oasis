@@ -25,4 +25,17 @@ public class DateUtilsTest {
         System.out.println(DateUtils.countByWorkingDay(date));
     }
 
+    @Test
+    public void 연도계산_test() {
+
+        LocalDate now = LocalDate.now();
+
+        LocalDate firstDay = DateUtils.firstDayOfYear(now.getYear());
+        LocalDate lastDay = DateUtils.lastDayOfYear(now.getYear());
+
+        System.out.println(firstDay);
+        System.out.println(lastDay);
+
+    }
+
 }
