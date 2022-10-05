@@ -1,5 +1,6 @@
 package com.oasis.data.dto.response;
 
+import com.oasis.data.entity.WorkPosition;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,6 +16,20 @@ public class ScheduleResponse {
     private String name;
     private String content;
     private LocalDate date;
-    private LocalDateTime createdTime;
-    private LocalDateTime updatedTime;
+    private Member member;
+
+    @Getter
+    @Builder
+    public static class Member {
+        private Long sid;
+        private String id;
+        private String name;
+        private String role;
+        private String workDuty;
+        private String workPosition;
+        private String department;
+    }
+    
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

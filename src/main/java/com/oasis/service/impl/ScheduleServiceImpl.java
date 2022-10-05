@@ -10,6 +10,10 @@ import com.oasis.repository.ScheduleRepository;
 import com.oasis.repository.MemberRepository;
 import com.oasis.repository.ScheduleTypeRepository;
 import com.oasis.service.ScheduleService;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +43,17 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(schedule.getName())
                 .content(schedule.getContent())
                 .date(schedule.getDate())
-                .createdTime(schedule.getCreatedAt())
-                .updatedTime(schedule.getUpdatedAt())
+                .member(ScheduleResponse.Member.builder()
+                        .sid(schedule.getMember().getSid())
+                        .id(schedule.getMember().getId())
+                        .name(schedule.getMember().getName())
+                        .role(schedule.getMember().getMemberRole().value())
+                        .workDuty(schedule.getMember().getWorkDuty().getName())
+                        .workPosition(schedule.getMember().getWorkPosition().getName())
+                        .department(schedule.getMember().getDepartment().getName())
+                        .build())
+                .createdAt(schedule.getCreatedAt())
+                .updatedAt(schedule.getUpdatedAt())
         .build()).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE));
     }
 
@@ -52,8 +65,17 @@ public class ScheduleServiceImpl implements ScheduleService {
                         .name(schedule.getName())
                         .content(schedule.getContent())
                         .date(schedule.getDate())
-                        .createdTime(schedule.getCreatedAt())
-                        .updatedTime(schedule.getUpdatedAt())
+                        .member(ScheduleResponse.Member.builder()
+                                .sid(schedule.getMember().getSid())
+                                .id(schedule.getMember().getId())
+                                .name(schedule.getMember().getName())
+                                .role(schedule.getMember().getMemberRole().value())
+                                .workDuty(schedule.getMember().getWorkDuty().getName())
+                                .workPosition(schedule.getMember().getWorkPosition().getName())
+                                .department(schedule.getMember().getDepartment().getName())
+                                .build())
+                        .createdAt(schedule.getCreatedAt())
+                        .updatedAt(schedule.getUpdatedAt())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -61,18 +83,26 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleResponse saveSchedule(ScheduleRequest scheduleRequest) {
         Member member = this.memberRepository.findById(scheduleRequest.getMemberSid()).orElseThrow(() -> new CommonException(NOT_FOUND_MEMBER));
+        ScheduleType scheduleType = scheduleTypeRepository.findById(scheduleRequest.getScheduleTypeSid()).orElseThrow(() -> new CommonException(NOT_FOUND_SCHEDULE_TYPE));
 
-        Schedule schedule = scheduleRequest.toSchedule();
-        schedule.setMember(member);
-
+        Schedule schedule = scheduleRequest.toSchedule(member, scheduleType);
         Schedule savedSchedule = this.scheduleRepository.save(schedule);
         return ScheduleResponse.builder()
                 .sid(savedSchedule.getSid())
                 .name(savedSchedule.getName())
                 .content(savedSchedule.getContent())
                 .date(savedSchedule.getDate())
-                .createdTime(savedSchedule.getCreatedAt())
-                .updatedTime(savedSchedule.getUpdatedAt())
+                .member(ScheduleResponse.Member.builder()
+                        .sid(schedule.getMember().getSid())
+                        .id(schedule.getMember().getId())
+                        .name(schedule.getMember().getName())
+                        .role(schedule.getMember().getMemberRole().value())
+                        .workDuty(schedule.getMember().getWorkDuty().getName())
+                        .workPosition(schedule.getMember().getWorkPosition().getName())
+                        .department(schedule.getMember().getDepartment().getName())
+                        .build())
+                .createdAt(savedSchedule.getCreatedAt())
+                .updatedAt(savedSchedule.getUpdatedAt())
                 .build();
     }
 
@@ -100,8 +130,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(savedSchedule.getName())
                 .content(savedSchedule.getContent())
                 .date(savedSchedule.getDate())
-                .createdTime(savedSchedule.getCreatedAt())
-                .updatedTime(savedSchedule.getUpdatedAt())
+                .createdAt(savedSchedule.getCreatedAt())
+                .updatedAt(savedSchedule.getUpdatedAt())
                 .build();
     }
 
@@ -119,8 +149,17 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .name(schedule.getName())
                 .content(schedule.getContent())
                 .date(schedule.getDate())
-                .createdTime(schedule.getCreatedAt())
-                .updatedTime(schedule.getUpdatedAt())
+                .member(ScheduleResponse.Member.builder()
+                        .sid(schedule.getMember().getSid())
+                        .id(schedule.getMember().getId())
+                        .name(schedule.getMember().getName())
+                        .role(schedule.getMember().getMemberRole().value())
+                        .workDuty(schedule.getMember().getWorkDuty().getName())
+                        .workPosition(schedule.getMember().getWorkPosition().getName())
+                        .department(schedule.getMember().getDepartment().getName())
+                        .build())
+                .createdAt(schedule.getCreatedAt())
+                .updatedAt(schedule.getUpdatedAt())
                 .build()).collect(Collectors.toList());
     }
 }
