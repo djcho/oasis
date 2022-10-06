@@ -1,15 +1,18 @@
 package com.oasis.service.impl;
 
-import com.oasis.data.dto.request.DepartmentRequestDto;
-import com.oasis.data.dto.response.DepartmentResponseDto;
+import com.oasis.common.constant.ErrorCode;
+import com.oasis.common.exception.CommonException;
+import com.oasis.common.util.ModelMapperUtils;
+import com.oasis.data.dto.request.DepartmentRequest;
+import com.oasis.data.dto.response.DepartmentResponse;
 import com.oasis.data.entity.Department;
 import com.oasis.repository.DepartmentRepository;
 import com.oasis.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,15 +22,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
-    public List<DepartmentResponseDto> list() {
+    public List<DepartmentResponse> list() {
         return departmentRepository.findAll().stream()
-                .map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
+                .map(d -> new DepartmentResponse(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public void save(DepartmentRequestDto dto){
-        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(RuntimeException::new);
+    public void save(DepartmentRequest dto){
+        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
         Department department = Department.builder()
                 .name(dto.getName())
                 .parentSid(dto.getParentSid())
@@ -35,19 +38,21 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .build();
         departmentRepository.save(department);
     }
-    
+
+    @Transactional
     public void saveAll(List<Department> departments) {
         departmentRepository.saveAll(departments);
     }
-    
+
+    @Transactional
     public void deleteAll() {
         departmentRepository.deleteAll();
     }
     
     @Transactional
-    public void update(Long sid, DepartmentRequestDto dto) {
-        Department current = departmentRepository.findById(sid).orElseThrow(RuntimeException::new);
-        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(RuntimeException::new);
+    public void update(Long sid, DepartmentRequest dto) {
+        Department current = departmentRepository.findById(sid).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
+        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
         if(current.getParentSid() == dto.getParentSid() && current.getName().equals(dto.getName())) {
             return;
         }
@@ -67,9 +72,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentRepository.deleteById(sid);
     }
 
-    public DepartmentResponseDto detail(Long sid) {
+    public DepartmentResponse detail(Long sid) {
+        ModelMapper mapper = ModelMapperUtils.getModelMapper();
         return departmentRepository.findById(sid)
-                .map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
-                .orElseThrow(RuntimeException::new);
+                .map(d -> mapper.map(d, DepartmentResponse.class))
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
     }
 }
