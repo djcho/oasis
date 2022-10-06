@@ -21,6 +21,7 @@ public class Member extends BaseEntity {
 
     @Email(message = "Invalid [id] format")
     @NotNull(message = "[id] cannot be null")
+    @Column(unique = true)
     private String id;
 
     @NotNull(message = "[name] cannot be null")
@@ -35,12 +36,11 @@ public class Member extends BaseEntity {
 
     private String password;
     
-    // user:position(many:one 단방향 매핑) 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "work_position_sid")
     private WorkPosition workPosition;
     
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "work_duty_sid")
     private WorkDuty workDuty;
 
