@@ -65,13 +65,14 @@ public class DepartmentServiceImpl implements DepartmentService {
             return;
         }
         // 이름이 변경 되지 않았다면 옮겨질 부서의 레벨값 + 1
-        if(current.getName().equals(dto.getName())) {
-            current.setParentSid(dto.getParentSid());
-            current.setLevel(parent.getLevel() + 1);
+        if(!current.getName().equals(dto.getName())) {
+            current.setName(dto.getName());
+
         }
         //이름만 변견됐다면 이름만 바꾸기
-        if(current.getParentSid() == dto.getParentSid()) {
-            current.setName(dto.getName());
+        if(!(current.getParentSid() == dto.getParentSid())) {
+            current.setParentSid(dto.getParentSid());
+            current.setLevel(parent.getLevel() + 1);
         }
         departmentRepository.save(current);
     }
