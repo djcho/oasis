@@ -30,7 +30,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Transactional
     public void save(DepartmentRequest dto){
-        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
+        Department parent = departmentRepository.findById(dto.getParentSid())
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
         Department department = Department.builder()
                 .name(dto.getName())
                 .parentSid(dto.getParentSid())
@@ -51,16 +52,24 @@ public class DepartmentServiceImpl implements DepartmentService {
     
     @Transactional
     public void update(Long sid, DepartmentRequest dto) {
-        Department current = departmentRepository.findById(sid).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
-        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
-        if(current.getParentSid() == dto.getParentSid() && current.getName().equals(dto.getName())) {
+        // dept id로 현재 부서값 가져오기
+        Department current = departmentRepository.findById(sid)
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
+        // parent dept id로 옮겨질 부서 값 가져오기
+        Department parent = departmentRepository.findById(dto.getParentSid())
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
+
+        // 현재 부서의 부모와 옮겨질 부모가 같고, 이름도 변경된게 없으면 그냥 종료
+        if(current.getParentSid() == dto.getParentSid()
+                && current.getName().equals(dto.getName())) {
             return;
         }
-
+        // 이름이 변경 되지 않았다면 옮겨질 부서의 레벨값 + 1
         if(current.getName().equals(dto.getName())) {
             current.setParentSid(dto.getParentSid());
             current.setLevel(parent.getLevel() + 1);
         }
+        //이름만 변견됐다면 이름만 바꾸기
         if(current.getParentSid() == dto.getParentSid()) {
             current.setName(dto.getName());
         }
