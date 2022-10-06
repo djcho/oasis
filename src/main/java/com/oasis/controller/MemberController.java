@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/members")
 public class MemberController {
     
     private final MemberService memberService;
@@ -24,7 +24,7 @@ public class MemberController {
     /**
      * 전체 사용자 조회 (TODO :: 검색 조건 추가 필요)
      * */
-    @GetMapping("/members")
+    @GetMapping
     public ResponseEntity<List<Member>> getAllMembers(
             @PageableDefault(size = 50) 
             @SortDefault.SortDefaults({
@@ -37,7 +37,7 @@ public class MemberController {
     /**
      * 특정 사용자 조회
      * */
-    @GetMapping("/members/{memberSid}")
+    @GetMapping("/{memberSid}")
     public ResponseEntity<Member> getOneMember(@PathVariable Long memberSid) {
         return new ResponseEntity<>(memberService.getOneMember(memberSid), HttpStatus.OK);
     }
@@ -46,7 +46,7 @@ public class MemberController {
      * 사용자 생성 
      * */
     // TODO :: 이하 롤체크 필요 !!!
-    @PostMapping("/members")
+    @PostMapping
     public ResponseEntity<Member> createMember(@RequestBody MemberCreationRequest memberCreationRequest) {
         return new ResponseEntity<>(memberService.createMember(memberCreationRequest), HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class MemberController {
     /**
      * 사용자 비밀번호 수정
      * */
-    @PatchMapping("/members/password")
+    @PatchMapping("/{memberSid}/password")
     public ResponseEntity<Member> updatePassword(@RequestBody MemberChangePasswordRequest memberChangePasswordRequest) {
         memberService.changePassword(memberChangePasswordRequest);
         return new ResponseEntity(HttpStatus.OK);
@@ -63,7 +63,7 @@ public class MemberController {
     /**
      * 사용자 삭제 
      * */
-    @DeleteMapping("/members/{memberSid}")
+    @DeleteMapping("/{memberSid}")
     public ResponseEntity deleteMember(@PathVariable Long memberSid) {
         memberService.deleteOneMember(memberSid);
         return new ResponseEntity(HttpStatus.OK);
