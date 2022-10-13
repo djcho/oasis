@@ -1,15 +1,18 @@
 package com.oasis.service.impl;
 
-import com.oasis.data.dto.request.DepartmentRequestDto;
-import com.oasis.data.dto.response.DepartmentResponseDto;
+import com.oasis.common.constant.ErrorCode;
+import com.oasis.common.exception.CommonException;
+import com.oasis.common.util.ModelMapperUtils;
+import com.oasis.data.dto.request.DepartmentRequest;
+import com.oasis.data.dto.response.DepartmentResponse;
 import com.oasis.data.entity.Department;
 import com.oasis.repository.DepartmentRepository;
 import com.oasis.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,15 +22,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
-    public List<DepartmentResponseDto> list() {
+    public List<DepartmentResponse> list() {
         return departmentRepository.findAll().stream()
-                .map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
+                .map(d -> new DepartmentResponse(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public void save(DepartmentRequestDto dto){
-        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(RuntimeException::new);
+    public void save(DepartmentRequest dto){
+        Department parent = departmentRepository.findById(dto.getParentSid())
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
         Department department = Department.builder()
                 .name(dto.getName())
                 .parentSid(dto.getParentSid())
@@ -35,29 +39,40 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .build();
         departmentRepository.save(department);
     }
-    
+
+    @Transactional
     public void saveAll(List<Department> departments) {
         departmentRepository.saveAll(departments);
     }
-    
+
+    @Transactional
     public void deleteAll() {
         departmentRepository.deleteAll();
     }
     
     @Transactional
-    public void update(Long sid, DepartmentRequestDto dto) {
-        Department current = departmentRepository.findById(sid).orElseThrow(RuntimeException::new);
-        Department parent = departmentRepository.findById(dto.getParentSid()).orElseThrow(RuntimeException::new);
-        if(current.getParentSid() == dto.getParentSid() && current.getName().equals(dto.getName())) {
+    public void update(Long sid, DepartmentRequest dto) {
+        // dept id로 현재 부서값 가져오기
+        Department current = departmentRepository.findById(sid)
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
+        // parent dept id로 옮겨질 부서 값 가져오기
+        Department parent = departmentRepository.findById(dto.getParentSid())
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
+
+        // 현재 부서의 부모와 옮겨질 부모가 같고, 이름도 변경된게 없으면 그냥 종료
+        if(current.getParentSid() == dto.getParentSid()
+                && current.getName().equals(dto.getName())) {
             return;
         }
+        // 이름이 변경 되지 않았다면 옮겨질 부서의 레벨값 + 1
+        if(!current.getName().equals(dto.getName())) {
+            current.setName(dto.getName());
 
-        if(current.getName().equals(dto.getName())) {
+        }
+        //이름만 변견됐다면 이름만 바꾸기
+        if(!(current.getParentSid() == dto.getParentSid())) {
             current.setParentSid(dto.getParentSid());
             current.setLevel(parent.getLevel() + 1);
-        }
-        if(current.getParentSid() == dto.getParentSid()) {
-            current.setName(dto.getName());
         }
         departmentRepository.save(current);
     }
@@ -67,9 +82,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentRepository.deleteById(sid);
     }
 
-    public DepartmentResponseDto detail(Long sid) {
+    public DepartmentResponse detail(Long sid) {
+        ModelMapper mapper = ModelMapperUtils.getModelMapper();
         return departmentRepository.findById(sid)
-                .map(d -> new DepartmentResponseDto(d.getSid(), d.getParentSid(), d.getName(), d.getLevel()))
-                .orElseThrow(RuntimeException::new);
+                .map(d -> mapper.map(d, DepartmentResponse.class))
+                .orElseThrow(()-> new CommonException(ErrorCode.NOT_FOUND_DEPARTMENT));
     }
 }
