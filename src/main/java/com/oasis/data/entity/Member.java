@@ -43,5 +43,7 @@ public class Member extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "work_duty_sid")
     private WorkDuty workDuty;
+    
+    
 
 }

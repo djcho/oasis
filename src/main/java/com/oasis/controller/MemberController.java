@@ -1,7 +1,10 @@
 package com.oasis.controller;
 
+import com.oasis.common.constant.ErrorCode;
+import com.oasis.data.dto.MemberDto;
 import com.oasis.data.dto.request.MemberChangePasswordRequest;
 import com.oasis.data.dto.request.MemberCreationRequest;
+import com.oasis.data.dto.response.CommonResponse;
 import com.oasis.data.entity.Member;
 import com.oasis.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -25,21 +28,21 @@ public class MemberController {
      * 전체 사용자 조회 (TODO :: 검색 조건 추가 필요)
      * */
     @GetMapping
-    public ResponseEntity<List<Member>> getAllMembers(
+    public ResponseEntity<CommonResponse> getAllMembers(
             @PageableDefault(size = 50) 
             @SortDefault.SortDefaults({
                 @SortDefault(sort = "department"),
                 @SortDefault(sort = "workDuty"),
                 @SortDefault(sort = "workPosition")}) Pageable userPage) {
-        return new ResponseEntity<>(memberService.getAllMembers(userPage), HttpStatus.OK);
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, memberService.getAllMembers(userPage));
     }
     
     /**
      * 특정 사용자 조회
      * */
     @GetMapping("/{memberSid}")
-    public ResponseEntity<Member> getOneMember(@PathVariable Long memberSid) {
-        return new ResponseEntity<>(memberService.getOneMember(memberSid), HttpStatus.OK);
+    public ResponseEntity<CommonResponse> getOneMember(@PathVariable Long memberSid) {
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, memberService.getOneMember(memberSid));
     }
 
     /**
@@ -47,26 +50,26 @@ public class MemberController {
      * */
     // TODO :: 이하 롤체크 필요 !!!
     @PostMapping
-    public ResponseEntity<Member> createMember(@RequestBody MemberCreationRequest memberCreationRequest) {
-        return new ResponseEntity<>(memberService.createMember(memberCreationRequest), HttpStatus.OK);
+    public ResponseEntity<CommonResponse> createMember(@RequestBody MemberCreationRequest memberCreationRequest) {
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, memberService.createMember(memberCreationRequest));
     }
     
     /**
      * 사용자 비밀번호 수정
      * */
     @PatchMapping("/{memberSid}/password")
-    public ResponseEntity<Member> updatePassword(@RequestBody MemberChangePasswordRequest memberChangePasswordRequest) {
+    public ResponseEntity<CommonResponse> updatePassword(@RequestBody MemberChangePasswordRequest memberChangePasswordRequest) {
         memberService.changePassword(memberChangePasswordRequest);
-        return new ResponseEntity(HttpStatus.OK);
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
     }
 
     /**
      * 사용자 삭제 
      * */
     @DeleteMapping("/{memberSid}")
-    public ResponseEntity deleteMember(@PathVariable Long memberSid) {
+    public ResponseEntity<CommonResponse> deleteMember(@PathVariable Long memberSid) {
         memberService.deleteOneMember(memberSid);
-        return new ResponseEntity(HttpStatus.OK);
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
     }
     
     

@@ -2,6 +2,7 @@ package com.oasis.service.impl;
 
 import com.oasis.common.constant.ErrorCode;
 import com.oasis.common.exception.CommonException;
+import com.oasis.data.dto.MemberDto;
 import com.oasis.data.dto.request.MemberChangePasswordRequest;
 import com.oasis.data.dto.request.MemberCreationRequest;
 import com.oasis.data.entity.Member;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,27 +24,27 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Member createMember(MemberCreationRequest memberCreationRequest) {
+    public MemberDto createMember(MemberCreationRequest memberCreationRequest) {
         if(memberRepository.findById(memberCreationRequest.getId()).isPresent()) {
             throw new CommonException(ErrorCode.DUPLICATION_MEMBER);
         }
         memberCreationRequest.setPassword(passwordEncoder.encode(memberCreationRequest.getPassword()));
-        return memberRepository.save(memberCreationRequest.toMember());
+        return MemberDto.of(memberRepository.save(memberCreationRequest.toMember()));
     }
 
     @Override
-    public List<Member> getAllMembers(Pageable pageable) {
-        return memberRepository.findAll(pageable).toList();
+    public List<MemberDto> getAllMembers(Pageable pageable) {
+        return memberRepository.findAll(pageable).stream().map(MemberDto::of).collect(Collectors.toList());
     }
 
     @Override
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+    public List<MemberDto> getAllMembers() {
+        return memberRepository.findAll().stream().map(MemberDto::of).collect(Collectors.toList());
     }
 
     @Override
-    public Member getOneMember(Long sid) {
-        return memberRepository.findById(sid).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
+    public MemberDto getOneMember(Long sid) {
+        return memberRepository.findById(sid).map(MemberDto::of).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
     }
 
     @Override
@@ -52,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void changePassword(MemberChangePasswordRequest memberChangePasswordRequest) {
-        Member member = this.getOneMember(memberChangePasswordRequest.getSid());
+        Member member = memberRepository.findById(memberChangePasswordRequest.getSid()).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
         if(passwordEncoder.matches(memberChangePasswordRequest.getOldPassword(), member.getPassword())) {
             member.setPassword(passwordEncoder.encode(memberChangePasswordRequest.getNewPassword()));
             memberRepository.save(member);
