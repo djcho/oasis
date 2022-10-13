@@ -26,6 +26,7 @@ public enum ErrorCode {
     NOT_FOUND_SCHEDULE_TYPE(NOT_FOUND, "일정 타입을 찾을 수 없습니다."),
     NOT_FOUND_ATTENDANCE(NOT_FOUND, "출퇴근 정보를 찾을 수 없습니다."),
     NOT_FOUND_WORK_LOG(NOT_FOUND, "업무 일지를 찾을 수 없습니다."),
+    NOT_FOUND_HOLIDAY(NOT_FOUND, "등록된 공휴일을 찾을 수 없습니다."),
 
     /* 409 CONFLICT : 다른 리소스와 충돌함, 중복된 데이터 */
     DUPLICATION_MEMBER(CONFLICT, "이미 동일한 아이디가 존재합니다."),
