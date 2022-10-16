@@ -15,6 +15,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -58,8 +61,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleResponse> getAllSchedules() {
-        return this.scheduleRepository.findAll().stream()
+    public Page<ScheduleResponse> getAllSchedules(Pageable pageable) {
+        return new PageImpl<>(this.scheduleRepository.findAll(pageable).stream()
                 .map(schedule -> ScheduleResponse.builder()
                         .sid(schedule.getSid())
                         .name(schedule.getName())
@@ -77,7 +80,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                         .createdAt(schedule.getCreatedAt())
                         .updatedAt(schedule.getUpdatedAt())
                         .build())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -142,9 +145,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleResponse> getSchedulesByMember(Long memberSid) {
+    public Page<ScheduleResponse> getSchedulesByMember(Long memberSid, Pageable pageable) {
         Member member = this.memberRepository.findById(memberSid).orElseThrow(() -> new CommonException(NOT_FOUND_MEMBER));
-        return this.scheduleRepository.findAllByMemberSid(member.getSid()).stream().map(schedule -> ScheduleResponse.builder()
+        return new PageImpl<>(this.scheduleRepository.findAllByMemberSid(member.getSid(), pageable).stream().map(schedule -> ScheduleResponse.builder()
                 .sid(schedule.getSid())
                 .name(schedule.getName())
                 .content(schedule.getContent())
@@ -160,6 +163,6 @@ public class ScheduleServiceImpl implements ScheduleService {
                         .build())
                 .createdAt(schedule.getCreatedAt())
                 .updatedAt(schedule.getUpdatedAt())
-                .build()).collect(Collectors.toList());
+                .build()).collect(Collectors.toList()));
     }
 }

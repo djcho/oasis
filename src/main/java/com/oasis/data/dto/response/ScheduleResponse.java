@@ -1,5 +1,9 @@
 package com.oasis.data.dto.response;
 
+import com.oasis.common.util.ModelMapperUtils;
+import com.oasis.data.dto.MemberDto;
+import com.oasis.data.entity.Member;
+import com.oasis.data.entity.Schedule;
 import com.oasis.data.entity.WorkPosition;
 import lombok.*;
 
@@ -32,4 +36,8 @@ public class ScheduleResponse {
     
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public static ScheduleResponse of(Schedule schedule) {
+        return ModelMapperUtils.getModelMapper().map(schedule, ScheduleResponse.class);
+    }
 }
