@@ -31,3 +31,44 @@ insert into member(sid, id, member_role, name, password, department_sid, work_po
 insert into member(sid, id, member_role, name, password, department_sid, work_position_sid, work_duty_sid, created_at, updated_at)values (3, 'jwmoon@pentasecurity.com', 'ADMIN', '문장완', 'jkljkl..', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 insert into member(sid, id, member_role, name, password, department_sid, work_position_sid, work_duty_sid, created_at, updated_at)values (4, 'yjshin@pentasecurity.com', 'ADMIN', '신예진', 'jkljkl..', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-01', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-02', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-03', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-04', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-05', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-06', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-07', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-08', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-09', '무제', 1, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-10', '무제', 1, 2);
+
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-01', '무제', 2, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-02', '무제', 2, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (13, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-03', '무제', 3, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (14, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-04', '무제', 3, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-05', '무제', 4, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (16, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-06', '무제', 4, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (17, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-07', '무제', 4, 2);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (18, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-08', '무제', 1, 3);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (19, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-09', '무제', 1, 1);
+insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
+    value (20, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-10', '무제', 1, 4);
