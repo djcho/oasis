@@ -25,17 +25,17 @@ public class HolidayController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> createHoliday(HolidayRequest holidayRequest){
+    public ResponseEntity<CommonResponse> createHoliday(@RequestBody HolidayRequest holidayRequest){
         HolidayResponse holidayResponse = holidayService.saveHoliday(holidayRequest);
 
-        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, holidayResponse);
     }
 
     @PatchMapping("/{holidaySid}")
-    public ResponseEntity<CommonResponse> updateHoliday(@PathVariable Long holidaySid, HolidayRequest request){
+    public ResponseEntity<CommonResponse> updateHoliday(@PathVariable Long holidaySid, @RequestBody HolidayRequest request){
         HolidayResponse holidayResponse = holidayService.updateHoliday(holidaySid, request);
 
-        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
+        return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, holidayResponse);
     }
 
     @DeleteMapping("/{holidaySid}")

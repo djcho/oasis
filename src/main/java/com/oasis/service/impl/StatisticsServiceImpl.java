@@ -1,6 +1,7 @@
 package com.oasis.service.impl;
 
 import com.oasis.common.util.DateUtils;
+import com.oasis.data.dto.MemberDto;
 import com.oasis.data.dto.response.StatisticsMonthlyResponse;
 import com.oasis.data.entity.Member;
 import com.oasis.data.entity.Statistics;
@@ -64,7 +65,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         //scheduleService.getScheduleByUserSid()
 
         // 멤버 리스트를 불러옴
-        List<Member> members = memberService.getAllMembers();
+        //List<MemberDto> members = memberService.getAllMembers();
 
         // 멤버 리스트와 멤버 스케
     }
@@ -74,7 +75,7 @@ public class StatisticsServiceImpl implements StatisticsService {
      * @param targetMonth
      */
     public void doFirstDayOfMonth(LocalDate targetMonth) {
-        List<Member> members = memberService.getAllMembers();
+        List<MemberDto> members = memberService.getAllMembers();
         int workingDays = DateUtils.countByWorkingDay(targetMonth);
 
         List<Statistics> initStatistics = members.stream()
