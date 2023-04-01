@@ -1,11 +1,11 @@
 package com.oasis.service.impl;
 
 import com.oasis.common.constant.ErrorCode;
-import com.oasis.common.exception.CommonException;
 import com.oasis.data.dto.MemberDto;
 import com.oasis.data.dto.request.MemberChangePasswordRequest;
 import com.oasis.data.dto.request.MemberCreationRequest;
-import com.oasis.data.entity.Member;
+import com.oasis.data.entity.MemberEntity;
+import com.oasis.exception.CommonException;
 import com.oasis.repository.MemberRepository;
 import com.oasis.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
             throw new CommonException(ErrorCode.DUPLICATION_MEMBER);
         }
         memberCreationRequest.setPassword(passwordEncoder.encode(memberCreationRequest.getPassword()));
-        return MemberDto.of(memberRepository.save(memberCreationRequest.toMember()));
+        return MemberDto.of(memberRepository.save(memberCreationRequest.toMemberEntity()));
     }
 
     @Override
@@ -43,21 +43,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto getOneMember(Long sid) {
-        return memberRepository.findById(sid).map(MemberDto::of).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
+    public MemberDto getOneMember(Long id) {
+        return memberRepository.findById(id).map(MemberDto::of).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
     }
 
     @Override
-    public void deleteOneMember(Long sid) {
-        memberRepository.deleteById(sid);
+    public void deleteOneMember(Long id) {
+        memberRepository.deleteById(id);
     }
 
     @Override
     public void changePassword(MemberChangePasswordRequest memberChangePasswordRequest) {
-        Member member = memberRepository.findById(memberChangePasswordRequest.getSid()).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
-        if(passwordEncoder.matches(memberChangePasswordRequest.getOldPassword(), member.getPassword())) {
-            member.setPassword(passwordEncoder.encode(memberChangePasswordRequest.getNewPassword()));
-            memberRepository.save(member);
+        MemberEntity memberEntity = memberRepository.findById(memberChangePasswordRequest.getSid()).orElseThrow(()->new CommonException(ErrorCode.NOT_FOUND_MEMBER));
+        if(passwordEncoder.matches(memberChangePasswordRequest.getOldPassword(), memberEntity.getPassword())) {
+            memberEntity.setPassword(passwordEncoder.encode(memberChangePasswordRequest.getNewPassword()));
+            memberRepository.save(memberEntity);
         } else {
             throw new CommonException(ErrorCode.INCORRECT_PASSWORD);
         }

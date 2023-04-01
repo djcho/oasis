@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 public class WorkLogCreateRequest {
-    private Long userSid;
+    private Long memberId;
     private String content;
     private LocalDateTime workingDate;
 
     @Override
     public String toString(){
-        return "WorkLogCreateRequest[userSid=" + userSid + "content=" + content + "workingDate" + workingDate + "]";
+        return "WorkLogCreateRequest[userSid=" + memberId + "content=" + content + "workingDate" + workingDate + "]";
     }
 }

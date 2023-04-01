@@ -1,6 +1,6 @@
 package com.oasis.service.impl;
 
-import com.oasis.data.entity.WorkPosition;
+import com.oasis.data.entity.WorkPositionEntity;
 import com.oasis.repository.WorkPositionRepository;
 import com.oasis.service.WorkPositionService;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +13,12 @@ public class WorkPositionServiceImpl implements WorkPositionService {
     private final WorkPositionRepository workPositionRepository;
 
     @Override
-    public WorkPosition getPosition(long sid) {
-        return workPositionRepository.getReferenceById(sid);
+    public WorkPositionEntity getWorkPosition(long workPositionId) {
+        return workPositionRepository.getReferenceById(workPositionId);
     }
 
     @Override
-    public void createWorkPosition(WorkPosition workPosition) {
-        workPositionRepository.save(workPosition);
+    public void createWorkPosition(WorkPositionEntity workPositionEntity) {
+        workPositionRepository.save(workPositionEntity);
     }
 }

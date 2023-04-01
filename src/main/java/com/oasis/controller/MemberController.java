@@ -1,21 +1,16 @@
 package com.oasis.controller;
 
 import com.oasis.common.constant.ErrorCode;
-import com.oasis.data.dto.MemberDto;
 import com.oasis.data.dto.request.MemberChangePasswordRequest;
 import com.oasis.data.dto.request.MemberCreationRequest;
 import com.oasis.data.dto.response.CommonResponse;
-import com.oasis.data.entity.Member;
 import com.oasis.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

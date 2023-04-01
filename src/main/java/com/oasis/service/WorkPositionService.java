@@ -1,10 +1,10 @@
 package com.oasis.service;
 
-import com.oasis.data.entity.WorkPosition;
+import com.oasis.data.entity.WorkPositionEntity;
 
 public interface WorkPositionService {
     
-    WorkPosition getPosition(long sid);
-    void createWorkPosition(WorkPosition workPosition);
+    WorkPositionEntity getWorkPosition(long workPositionId);
+    void createWorkPosition(WorkPositionEntity workPositionEntity);
     
 }

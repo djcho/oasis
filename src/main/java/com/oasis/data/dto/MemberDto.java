@@ -2,10 +2,7 @@ package com.oasis.data.dto;
 
 import com.oasis.common.constant.MemberRole;
 import com.oasis.common.util.ModelMapperUtils;
-import com.oasis.data.entity.Department;
-import com.oasis.data.entity.Member;
-import com.oasis.data.entity.WorkDuty;
-import com.oasis.data.entity.WorkPosition;
+import com.oasis.data.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,17 +16,17 @@ public class MemberDto {
     private String id;
     private String name;
     private MemberRole memberRole;
-    private Department department;
-    private WorkPosition workPosition;
-    private WorkDuty workDuty;
+    private DepartmentEntity department;
+    private WorkPositionEntity workPositionEntity;
+    private WorkDutyEntity workDutyEntity;
     
 
-    public static MemberDto of(Member member) {
+    public static MemberDto of(MemberEntity member) {
         return ModelMapperUtils.getModelMapper().map(member, MemberDto.class);
     }
     
-    public Member toMember() {
-        return ModelMapperUtils.getModelMapper().map(this, Member.class);
+    public MemberEntity toMember() {
+        return ModelMapperUtils.getModelMapper().map(this, MemberEntity.class);
     }
 
 }

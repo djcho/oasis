@@ -4,19 +4,17 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
 @Builder
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class WorkDuty {
-    
-    // TODO :: level을 둬야할까? 
-    
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Table(name = "attendance")
+public class AttendanceEntity extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sid;
-    
-    private String name;
-    
+    private Long id;
 }

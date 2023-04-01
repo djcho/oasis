@@ -22,14 +22,14 @@ public class WorkLogController {
         workLogService.addWorkLog(workLogCreateRequest);
     }
 
-    @PatchMapping(value = "{sid}")
-    public void modifyWorkLog(@PathVariable Long sid, @RequestBody WorkLogModifyRequest workLogModifyRequest){
-        workLogService.modifyWorkLog(sid, workLogModifyRequest);
+    @PatchMapping(value = "{id}")
+    public void modifyWorkLog(@PathVariable Long id, @RequestBody WorkLogModifyRequest workLogModifyRequest){
+        workLogService.modifyWorkLog(id, workLogModifyRequest);
     }
 
-    @DeleteMapping(value = "{sid}")
-    public void removeWorkLog(@PathVariable Long sid){
-        workLogService.removeWorkLog(sid);
+    @DeleteMapping(value = "{id}")
+    public void removeWorkLog(@PathVariable Long id){
+        workLogService.removeWorkLog(id);
     }
 
     

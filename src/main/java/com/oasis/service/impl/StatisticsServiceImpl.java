@@ -3,8 +3,7 @@ package com.oasis.service.impl;
 import com.oasis.common.util.DateUtils;
 import com.oasis.data.dto.MemberDto;
 import com.oasis.data.dto.response.StatisticsMonthlyResponse;
-import com.oasis.data.entity.Member;
-import com.oasis.data.entity.Statistics;
+import com.oasis.data.entity.StatisticsEntity;
 import com.oasis.repository.StatisticsRepository;
 import com.oasis.service.MemberService;
 import com.oasis.service.ScheduleService;
@@ -38,7 +37,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         LocalDate firstDayOfYear = DateUtils.firstDayOfYear(year);
         LocalDate lastDayOfYear = DateUtils.lastDayOfYear(year);
 
-        List<Statistics> allStatistics = statisticsRepository.findByDateBetween(firstDayOfYear, lastDayOfYear);
+        List<StatisticsEntity> allStatistics = statisticsRepository.findByDateBetween(firstDayOfYear, lastDayOfYear);
 
         allStatistics.stream().forEach(s -> {
             int month = s.getDate().getMonth().getValue();
@@ -60,7 +59,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         LocalDate today = LocalDate.now();
         LocalDate startDate = DateUtils.getFirstDayOfMonth(today); // 이번달 첫날
         LocalDate endDate = DateUtils.getLastDayOfMonth(today);  // 이번달 마지막날
-        List<Statistics> existSchedules = statisticsRepository.findByDateBetween(startDate, endDate); // 해당 달의 모든 정보를 가져옴
+        List<StatisticsEntity> existSchedules = statisticsRepository.findByDateBetween(startDate, endDate); // 해당 달의 모든 정보를 가져옴
 
         //scheduleService.getScheduleByUserSid()
 
@@ -78,10 +77,10 @@ public class StatisticsServiceImpl implements StatisticsService {
         List<MemberDto> members = memberService.getAllMembers();
         int workingDays = DateUtils.countByWorkingDay(targetMonth);
 
-        List<Statistics> initStatistics = members.stream()
+        List<StatisticsEntity> initStatistics = members.stream()
                 .map(m -> {
-                    Statistics s = Statistics.builder()
-                            .userSid(m.getSid())
+                    StatisticsEntity s = StatisticsEntity.builder()
+                            .member(m.toMember())
                             .date(targetMonth)
                             .workingDayCount(workingDays)
                             .officeWorkCount(workingDays)
@@ -94,7 +93,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         statisticsRepository.saveAll(initStatistics);
     }
 
-    private Statistics calculateWorkingRate(Statistics s){
+    private StatisticsEntity calculateWorkingRate(StatisticsEntity s){
         long workingDay = s.getWorkingDayCount();
         long officeWorkCount = s.getOfficeWorkCount();
         long remoteWorkCount = s.getRemoteWorkCount();

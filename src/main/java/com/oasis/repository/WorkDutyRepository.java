@@ -1,8 +1,7 @@
 package com.oasis.repository;
 
-import com.oasis.data.entity.WorkDuty;
-import com.oasis.data.entity.WorkPosition;
+import com.oasis.data.entity.WorkDutyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface WorkDutyRepository extends JpaRepository<WorkDuty, Long> {
+public interface WorkDutyRepository extends JpaRepository<WorkDutyEntity, Long> {
 }

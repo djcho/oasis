@@ -1,7 +1,7 @@
 package com.oasis.security;
 
 import com.google.gson.Gson;
-import com.szs.ct.data.dto.ResponseDtoTemplate;
+import com.oasis.data.dto.ResponseDtoTemplate;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.szs.ct.constant.ErrorCode.INVALID_ACCESS_TOKEN;
+import static com.oasis.common.constant.ErrorCode.INVALID_ACCESS_TOKEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Component

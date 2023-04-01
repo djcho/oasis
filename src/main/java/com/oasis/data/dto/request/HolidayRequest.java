@@ -1,9 +1,5 @@
 package com.oasis.data.dto.request;
 
-import com.oasis.data.entity.Holiday;
-import com.oasis.data.entity.Member;
-import com.oasis.data.entity.Schedule;
-import com.oasis.data.entity.ScheduleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

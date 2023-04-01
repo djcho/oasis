@@ -1,6 +1,6 @@
 package com.oasis.service.impl;
 
-import com.oasis.data.entity.WorkDuty;
+import com.oasis.data.entity.WorkDutyEntity;
 import com.oasis.repository.WorkDutyRepository;
 import com.oasis.service.WorkDutyService;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +13,12 @@ public class WorkDutyServiceImpl implements WorkDutyService {
     private final WorkDutyRepository workDutyRepository;
     
     @Override
-    public void createWorkDuty(WorkDuty workDuty) {
-        workDutyRepository.save(workDuty);
+    public void createWorkDuty(WorkDutyEntity workDutyEntity) {
+        workDutyRepository.save(workDutyEntity);
     }
 
     @Override
-    public WorkDuty getWorkDuty(long sid) {
+    public WorkDutyEntity getWorkDuty(long sid) {
         return workDutyRepository.getReferenceById(sid);
     }
 

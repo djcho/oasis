@@ -30,21 +30,21 @@ public class DepartmentController {
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
     }
 
-    @PatchMapping("/{deptSid}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long deptSid, @RequestBody DepartmentRequest departmentRequestDto) {
-        departmentService.update(deptSid, departmentRequestDto);
+    @PatchMapping("/{id}")
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody DepartmentRequest departmentRequestDto) {
+        departmentService.update(id, departmentRequestDto);
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
     }
 
-    @DeleteMapping("/{deptSid}")
-    public ResponseEntity<CommonResponse> delete(@PathVariable Long deptSid) {
-        departmentService.delete(deptSid);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonResponse> delete(@PathVariable Long id) {
+        departmentService.delete(id);
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
     }
 
-    @GetMapping("/{deptSid}")
-    public DepartmentResponse detail(@PathVariable Long deptSid) {
-        return departmentService.detail(deptSid);
+    @GetMapping("/{id}")
+    public DepartmentResponse detail(@PathVariable Long id) {
+        return departmentService.detail(id);
     }
 
 

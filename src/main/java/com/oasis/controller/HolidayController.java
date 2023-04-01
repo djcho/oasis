@@ -31,16 +31,16 @@ public class HolidayController {
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, holidayResponse);
     }
 
-    @PatchMapping("/{holidaySid}")
-    public ResponseEntity<CommonResponse> updateHoliday(@PathVariable Long holidaySid, @RequestBody HolidayRequest request){
-        HolidayResponse holidayResponse = holidayService.updateHoliday(holidaySid, request);
+    @PatchMapping("/{id}")
+    public ResponseEntity<CommonResponse> updateHoliday(@PathVariable Long id, @RequestBody HolidayRequest request){
+        HolidayResponse holidayResponse = holidayService.updateHoliday(id, request);
 
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS, holidayResponse);
     }
 
-    @DeleteMapping("/{holidaySid}")
-    public ResponseEntity<CommonResponse> deleteHoliday(@PathVariable Long holidaySid){
-        holidayService.deleteHoliday(holidaySid);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonResponse> deleteHoliday(@PathVariable Long id){
+        holidayService.deleteHoliday(id);
 
         return CommonResponse.toResponseEntity(ErrorCode.SUCCESS);
     }

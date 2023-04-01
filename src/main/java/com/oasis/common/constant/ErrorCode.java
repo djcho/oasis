@@ -25,16 +25,20 @@ public enum ErrorCode {
     /* 404 NOT_FOUND : 리소스가 존재하지 않음 */
     NOT_FOUND_MEMBER(NOT_FOUND, "사용자를 찾을 수 없습니다."),
     NOT_FOUND_SCRAP(NOT_FOUND, "스크랩을 찾을 수 없습니다."),
+    NOT_FOUND_DEPARTMENT(NOT_FOUND, "부서를 찾을 수 없습니다."),
+    NOT_FOUND_HOLIDAY(NOT_FOUND, "휴일을 찾을 수 없습니다."),
+    NOT_FOUND_SCHEDULE(NOT_FOUND, "스케쥴을 찾을 수 없습니다."),
+    NOT_FOUND_SCHEDULE_TYPE(NOT_FOUND, "스케쥴 타입을 찾을 수 없습니다."),
 
     /* 409 CONFLICT : 다른 리소스와 충돌함, 중복된 데이터 */
-    DUPLICATION_USER(CONFLICT, "이미 동일한 아이디가 존재합니다."),
+    DUPLICATION_MEMBER(CONFLICT, "이미 동일한 사용자가 존재합니다."),
     DUPLICATION_RESOURCE(CONFLICT, "이미 동일한 리소스가 존재합니다."),
 
     /* 500 INTERNAL_SERVER_ERROR : 정의되지 않은 내부 오류 */
     NOT_DEFINITION_ERROR(INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
     DATA_OPERATION_ERROR(INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
     DEPENDENCY_SERVER_ERROR(INTERNAL_SERVER_ERROR, "종속된 서버와의 작업 오류입니다."),
-        ;
+    ;
 
     final HttpStatus httpStatus;
     final String message;

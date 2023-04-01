@@ -2,11 +2,10 @@ package com.oasis.data.dto.request;
 
 import com.oasis.common.constant.MemberRole;
 import com.oasis.common.util.ModelMapperUtils;
-import com.oasis.data.entity.Department;
-import com.oasis.data.entity.Member;
-import com.oasis.data.entity.WorkDuty;
-import com.oasis.data.entity.WorkPosition;
-import lombok.*;
+import com.oasis.data.entity.MemberEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
@@ -14,8 +13,8 @@ import lombok.*;
 @AllArgsConstructor
 public class MemberCreationRequest {
     
-    private Long sid;
-    private String id;
+    private Long id;
+    private String uid;
     private String name;
     private MemberRole memberRole;
     private Long departmentSid;
@@ -23,8 +22,8 @@ public class MemberCreationRequest {
     private Long workPositionSid;
     private Long workDutySid;
     
-    public Member toMember() {
-        return ModelMapperUtils.getModelMapper().map(this, Member.class);
+    public MemberEntity toMemberEntity() {
+        return ModelMapperUtils.getModelMapper().map(this, MemberEntity.class);
     }
     
 }

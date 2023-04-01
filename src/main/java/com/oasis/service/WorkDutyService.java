@@ -1,9 +1,9 @@
 package com.oasis.service;
 
-import com.oasis.data.entity.WorkDuty;
+import com.oasis.data.entity.WorkDutyEntity;
 
 public interface WorkDutyService {
     
-    void createWorkDuty(WorkDuty workDuty);
-    WorkDuty getWorkDuty(long sid);
+    void createWorkDuty(WorkDutyEntity workDutyEntity);
+    WorkDutyEntity getWorkDuty(long id);
 }

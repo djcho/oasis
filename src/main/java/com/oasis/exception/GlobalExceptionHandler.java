@@ -1,6 +1,6 @@
 package com.oasis.exception;
 
-import com.szs.ct.data.dto.ResponseDtoTemplate;
+import com.oasis.data.dto.ResponseDtoTemplate;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,7 +12,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.Set;
 
-import static com.szs.ct.constant.ErrorCode.*;
+import static com.oasis.common.constant.ErrorCode.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

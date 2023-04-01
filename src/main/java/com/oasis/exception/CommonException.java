@@ -1,6 +1,6 @@
 package com.oasis.exception;
 
-import com.szs.ct.constant.ErrorCode;
+import com.oasis.common.constant.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
