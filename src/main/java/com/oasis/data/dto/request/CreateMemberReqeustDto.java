@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberCreationRequest {
+public class CreateMemberReqeustDto {
     
     private Long id;
     private String uid;

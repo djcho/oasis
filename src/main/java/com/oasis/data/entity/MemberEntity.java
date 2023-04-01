@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.Collection;
 
 
@@ -24,12 +23,14 @@ public class MemberEntity extends BaseEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Invalid [id] format")
     @Column(nullable = false, unique = true)
     private String uid;
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -38,9 +39,6 @@ public class MemberEntity extends BaseEntity implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
-
-    @Column(nullable = false)
-    private String password;
     
     @OneToOne
     @JoinColumn(name = "work_position_id")
@@ -53,6 +51,7 @@ public class MemberEntity extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+       // return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         return null;
     }
 

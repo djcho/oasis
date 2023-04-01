@@ -17,7 +17,7 @@ public enum ErrorCode {
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
     INVALID_ACCESS_TOKEN(UNAUTHORIZED, "유효하지 않은 인증 토큰입니다."),
     INCORRECT_PASSWORD(UNAUTHORIZED, "유효하지 않은 패스워드입니다."),
-    UNAUTHORIZED_USER(UNAUTHORIZED, "인가되지 않은 사용자 입니다."),
+    UNAUTHORIZED_MEMBER(UNAUTHORIZED, "인가되지 않은 사용자 입니다."),
 
     /* 403 FORBIDDEN : 리소스에 접근할 권한이 없음 */
     ACCESS_DENIED(FORBIDDEN, "리소스에 접근할 권한이 없습니다."),
