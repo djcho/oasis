@@ -1,12 +1,12 @@
 package com.oasis.data.entity;
 
-import com.oasis.common.constant.MemberRole;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.*;
 
 
 @Getter
@@ -33,8 +33,8 @@ public class MemberEntity extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private MemberRole memberRole;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "department_id")
@@ -48,11 +48,13 @@ public class MemberEntity extends BaseEntity implements UserDetails {
     @JoinColumn(name = "work_duty_id")
     private WorkDutyEntity workDuty;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       // return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (RoleEntity role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override

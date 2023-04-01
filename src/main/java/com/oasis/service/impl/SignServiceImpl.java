@@ -3,7 +3,6 @@ package com.oasis.service.impl;
 import com.oasis.data.dto.request.SignInRequestDto;
 import com.oasis.data.entity.MemberEntity;
 import com.oasis.exception.CommonException;
-import com.oasis.mapper.SignMapper;
 import com.oasis.repository.MemberRepository;
 import com.oasis.security.ApiAccessTokenProvider;
 import com.oasis.service.SignService;
@@ -21,7 +20,7 @@ public class SignServiceImpl implements SignService {
     private final ApiAccessTokenProvider apiAccessTokenProvider;
     private final PasswordEncoder passwordEncoder;
 
-    public SignServiceImpl(MemberRepository memberRepository, ApiAccessTokenProvider apiAccessTokenProvider, PasswordEncoder passwordEncoder, SignMapper signMapper){
+    public SignServiceImpl(MemberRepository memberRepository, ApiAccessTokenProvider apiAccessTokenProvider, PasswordEncoder passwordEncoder){
         this.memberRepository = memberRepository;
         this.apiAccessTokenProvider = apiAccessTokenProvider;
         this.passwordEncoder = passwordEncoder;

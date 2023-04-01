@@ -25,11 +25,15 @@ insert into schedule_type(id, name, created_at, updated_at) values(3, 'NOONOFF',
 insert into schedule_type(id, name, created_at, updated_at) values(4, 'MORNINGOFF', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 insert into schedule_type(id, name, created_at, updated_at) values(5, 'ETC', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
-insert into member(id, uid, member_role, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (1, 'admin@pentasecurity.com', 'ADMIN', '최고관리자', '$2a$10$jQDooQxrCsMBWHlj15h8pO.uC5tkj/Fonb.8GzDaiJOQQY6fyAGRu', 7, 3, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into member(id, uid, member_role, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (2, 'djcho@pentasecurity.com', 'ADMIN', '조대준', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 7, 3, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into member(id, uid, member_role, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (3, 'yesora@pentasecurity.com', 'ADMIN', '최예소라', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 6, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into member(id, uid, member_role, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (4, 'jwmoon@pentasecurity.com', 'ADMIN', '문장완', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into member(id, uid, member_role, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (5, 'yjshin@pentasecurity.com', 'ADMIN', '신예진', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into role(id, name) values (1, 'ADMIN');
+insert into role(id, name) values (2, 'MANAGER');
+insert into role(id, name) values (3, 'USER');
+
+insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (1, 'admin@pentasecurity.com', '최고관리자', '$2a$10$jQDooQxrCsMBWHlj15h8pO.uC5tkj/Fonb.8GzDaiJOQQY6fyAGRu', 7, 3, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (2, 'djcho@pentasecurity.com', '조대준', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 7, 3, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (3, 'yesora@pentasecurity.com', '최예소라', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 6, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (4, 'jwmoon@pentasecurity.com', '문장완', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (5, 'yjshin@pentasecurity.com', '신예진', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 /*
 insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
     value (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-01', '무제', 1, 2);
