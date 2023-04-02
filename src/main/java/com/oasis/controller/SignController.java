@@ -2,9 +2,11 @@ package com.oasis.controller;
 
 import com.oasis.common.constant.ErrorCode;
 import com.oasis.data.dto.ResponseDtoTemplate;
+import com.oasis.data.dto.request.InvitationRequestDto;
 import com.oasis.data.dto.request.SignInRequestDto;
 import com.oasis.data.dto.response.SignInResponseDto;
 import com.oasis.mapper.SignMapper;
+import com.oasis.service.InvitationService;
 import com.oasis.service.SignService;
 import com.oasis.service.data.SignInResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +25,8 @@ public class SignController {
     private final SignService signService;
     private final SignMapper signMapper;
 
+    private final InvitationService invitationService;
+
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "가입된 사용자를 로그인 시킵니다.")
     public ResponseEntity<ResponseDtoTemplate<SignInResponseDto>> login(
@@ -31,5 +35,13 @@ public class SignController {
         SignInResponseDto signInResponseDto = signMapper.toSignInResponseDto(signInResult);
 
         return ResponseDtoTemplate.toResponseEntity(ErrorCode.SUCCESS, signInResponseDto);
+    }
+
+    @PostMapping("/invitation")
+    @Operation(summary = "초대 링크 보내기", description = "초대 링크를 생성합니다.")
+    public ResponseEntity<?> createInvitationLink(
+            InvitationRequestDto invitationRequestDto) {
+        invitationService.sendInvitationLink(invitationRequestDto.getEmail());
+        return ResponseDtoTemplate.toResponseEntity(ErrorCode.SUCCESS);
     }
 }

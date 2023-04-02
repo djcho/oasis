@@ -1,6 +1,8 @@
 package com.oasis.service.impl;
 
+import com.oasis.data.entity.MemberEntity;
 import com.oasis.repository.MemberRepository;
+import com.oasis.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +18,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return memberRepository.findByUid(username)
+        MemberEntity member = memberRepository.findByUid(username)
                 .orElseThrow(() -> new UsernameNotFoundException(NOT_FOUND_MEMBER.getMessage()));
+        return UserPrincipal.create(member);
     }
 }

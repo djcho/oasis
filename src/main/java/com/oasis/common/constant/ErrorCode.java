@@ -37,6 +37,7 @@ public enum ErrorCode {
     /* 500 INTERNAL_SERVER_ERROR : 정의되지 않은 내부 오류 */
     NOT_DEFINITION_ERROR(INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
     DATA_OPERATION_ERROR(INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
+    MESSAGING_ERROR(INTERNAL_SERVER_ERROR, "메일 전송 오류입니다."),
     DEPENDENCY_SERVER_ERROR(INTERNAL_SERVER_ERROR, "종속된 서버와의 작업 오류입니다."),
     ;
 

@@ -11,11 +11,25 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MariaDB103Dialect # dialect도 mariadb에 맞게 설정
+        dialect: org.hibernate.dialect.MariaDB103Dialect
 
   sql:
     init:
-      data-locations: classpath:/sql/data.sql # sql 폴더 내에 있는 모든 파일을 실행
+      data-locations: classpath:/sql/data.sql
       platform: mariadb
       mode: always
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-password
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true

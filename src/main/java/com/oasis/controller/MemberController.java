@@ -6,13 +6,16 @@ import com.oasis.data.dto.ResponseDtoTemplate;
 import com.oasis.data.dto.request.CreateMemberReqeustDto;
 import com.oasis.data.dto.request.MemberChangePasswordRequest;
 import com.oasis.data.dto.response.CommonResponse;
+import com.oasis.security.UserPrincipal;
 import com.oasis.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -46,7 +49,9 @@ public class MemberController {
     @PostMapping
     @Operation(summary = "회원 추가", description = "새로운 회원을 추가합니다.")
     public ResponseEntity<ResponseDtoTemplate<MemberDto>> createMember(
-            @RequestBody CreateMemberReqeustDto createMemberReqeustDto) {
+            @RequestBody CreateMemberReqeustDto createMemberReqeustDto,
+            @Parameter(hidden = true)
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
         return ResponseDtoTemplate.toResponseEntity(ErrorCode.SUCCESS, memberService.createMember(createMemberReqeustDto));
     }
     

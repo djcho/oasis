@@ -25,7 +25,7 @@ import java.util.Date;
 public class ApiAccessTokenProvider {
     private final UserDetailsService userDetailsService;
 
-    @Value("${springboot.jwt.api.secret.key}")
+    @Value("${spring.jwt.api.secret.key}")
     private String secretKey = "secretKey";
 
     @PostConstruct

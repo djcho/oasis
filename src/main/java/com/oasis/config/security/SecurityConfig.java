@@ -33,6 +33,7 @@ public class SecurityConfig  {
                 .exceptionHandling().authenticationEntryPoint(unAuthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers("/api/v1/sign/invitation").hasAnyRole("MANAGER", "ADMIN")
                 .antMatchers("/api/v1/sign/login").permitAll()
                 .antMatchers("/swagger-ui/*", "/swagger-ui.html", "/webjars/**", "/v3/**", "/swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()

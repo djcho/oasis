@@ -1,12 +1,10 @@
 package com.oasis.data.entity;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -17,7 +15,7 @@ import java.util.*;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "member")
-public class MemberEntity extends BaseEntity implements UserDetails {
+public class MemberEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +31,7 @@ public class MemberEntity extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
     @ManyToOne
@@ -47,38 +45,4 @@ public class MemberEntity extends BaseEntity implements UserDetails {
     @OneToOne
     @JoinColumn(name = "work_duty_id")
     private WorkDutyEntity workDuty;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (RoleEntity role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-        return authorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.uid;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }
