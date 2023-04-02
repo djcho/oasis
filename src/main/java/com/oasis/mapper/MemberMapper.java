@@ -1,5 +1,7 @@
 package com.oasis.mapper;
 
+import com.oasis.data.dto.MemberDto;
+import com.oasis.data.dto.request.CreateMemberRequestDto;
 import com.oasis.data.dto.response.GetMemberInfoResponseDto;
 import com.oasis.data.entity.MemberEntity;
 import com.oasis.service.data.GetMemberInfoResult;
@@ -20,5 +22,13 @@ public class MemberMapper {
 
     public GetMemberInfoResponseDto toGetMemberInfoResponseDto(GetMemberInfoResult getMemberInfoResult) {
         return modelMapper.map(getMemberInfoResult, GetMemberInfoResponseDto.class);
+    }
+
+    public MemberEntity createMemberRequestDtoToEntity(CreateMemberRequestDto createMemberRequestDto) {
+        return modelMapper.map(createMemberRequestDto, MemberEntity.class);
+    }
+
+    public MemberDto memberEntityToMemberDto(MemberEntity savedMember) {
+        return modelMapper.map(savedMember, MemberDto.class);
     }
 }

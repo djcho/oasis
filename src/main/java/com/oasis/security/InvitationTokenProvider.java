@@ -15,14 +15,12 @@ public class InvitationTokenProvider {
     @Value("${spring.jwt.invitation.secret.key}")
     private String secretKey = "invTokenSecretKey";
 
-    public String genToken() {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 3600000); // 1 hour
+    public String genToken(Date expiryDate) {
 
         UUID uuid = UUID.randomUUID();
         String token = Jwts.builder()
                 .setId(uuid.toString())
-                .setIssuedAt(now)
+                .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();

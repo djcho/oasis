@@ -23,6 +23,5 @@ public class UnAuthorizedHandler implements AuthenticationEntryPoint {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(gson.toJson(ResponseDtoTemplate.toResponseEntity(INVALID_ACCESS_TOKEN).getBody()));
-
     }
 }

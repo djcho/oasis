@@ -31,7 +31,7 @@ public class MemberEntity extends BaseEntity{
     private String password;
 
     @Column(nullable = false)
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<RoleEntity> roles = new HashSet<>();
 
     @ManyToOne

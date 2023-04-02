@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h2>Sign Up</h2>
+<form id="signup-form">
+    <input type="hidden" id="token" name="token" th:value="${token}">
+    <label for="uid">UserId:</label><br>
+    <input type="text" id="uid" name="uid"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br><br>
+    <input type="submit" value="Sign Up">
+</form>
+<script>
+    debugger;
+    $(document).ready(function () {
+        $('#signup-form').submit(function (event) {
+            event.preventDefault();
+            const formData = {
+                uid: $('#uid').val(),
+                password: $('#password').val(),
+                name: $('#name').val()
+            };
+            const token = $('#token').val();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/v1/members?token=" + token,
+                data: JSON.stringify(formData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    alert("회원가입이 성공하였습니다.");
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    alert("회원가입이 실패하였습니다.");
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,24 +1,25 @@
 package com.oasis.data.dto;
 
-import com.oasis.common.constant.MemberRole;
 import com.oasis.common.util.ModelMapperUtils;
 import com.oasis.data.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto {
 
-    private Long sid;
-    private String id;
+    private Long id;
+    private String uid;
     private String name;
-    private MemberRole memberRole;
+    private Set<RoleEntity> roles;
     private DepartmentEntity department;
-    private WorkPositionEntity workPositionEntity;
-    private WorkDutyEntity workDutyEntity;
+    private WorkPositionEntity workPosition;
+    private WorkDutyEntity workDuty;
     
 
     public static MemberDto of(MemberEntity member) {

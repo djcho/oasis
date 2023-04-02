@@ -34,6 +34,8 @@ insert into member(id, uid, name, password, department_id, work_position_id, wor
 insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (3, 'yesora@pentasecurity.com', '최예소라', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 6, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (4, 'jwmoon@pentasecurity.com', '문장완', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 insert into member(id, uid, name, password, department_id, work_position_id, work_duty_id, created_at, updated_at)values (5, 'yjshin@pentasecurity.com', '신예진', '$2a$10$c3J3SbE0N7/3tkIMQlyKi.HTMC5sXj1wYQlEvwylr57PiEkZlQ10a', 8, 2, 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+
+insert into member_roles(members_id, roles_id) values (1, 1);
 /*
 insert into schedule (sid, created_at, updated_at, content, date, name, member_sid, schedule_type_sid)
     value (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '냉무', '2022-10-01', '무제', 1, 2);

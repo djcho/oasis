@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InvitationRepository extends JpaRepository<InvitationEntity, Long> {
+    boolean existsByToken(String token);
+
+    void deleteByToken(String signUpToken);
 }

@@ -1,4 +1,4 @@
-package com.oasis.controller;
+package com.oasis.controller.rest;
 
 import com.oasis.common.constant.ErrorCode;
 import com.oasis.data.dto.ResponseDtoTemplate;
@@ -6,6 +6,7 @@ import com.oasis.data.dto.request.InvitationRequestDto;
 import com.oasis.data.dto.request.SignInRequestDto;
 import com.oasis.data.dto.response.SignInResponseDto;
 import com.oasis.mapper.SignMapper;
+import com.oasis.security.UserPrincipal;
 import com.oasis.service.InvitationService;
 import com.oasis.service.SignService;
 import com.oasis.service.data.SignInResult;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +42,10 @@ public class SignController {
     @PostMapping("/invitation")
     @Operation(summary = "초대 링크 보내기", description = "초대 링크를 생성합니다.")
     public ResponseEntity<?> createInvitationLink(
-            InvitationRequestDto invitationRequestDto) {
-        invitationService.sendInvitationLink(invitationRequestDto.getEmail());
+            @RequestBody InvitationRequestDto invitationRequestDto,
+            @Parameter(hidden = true)
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        invitationService.sendInvitationLink(invitationRequestDto.getEmail(), userPrincipal.getUid());
         return ResponseDtoTemplate.toResponseEntity(ErrorCode.SUCCESS);
     }
 }

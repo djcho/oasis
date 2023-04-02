@@ -1,4 +1,4 @@
-package com.oasis.controller;
+package com.oasis.controller.rest;
 
 import com.oasis.common.constant.ErrorCode;
 import com.oasis.data.dto.request.ScheduleRequest;

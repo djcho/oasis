@@ -1,4 +1,4 @@
-package com.oasis.controller;
+package com.oasis.controller.rest;
 
 public class AttendanceController {
 }
